@@ -1,0 +1,5 @@
+This repo will build an SD image for Bela, including a custom xenomai kernel, debian stretch rootfs, and bootloader.
+
+It is heavily based on Robert Nelson's Beaglebone image-builder scripts, and uses his xenomai kernel building scripts alogn with a bunch of other stuff - many thanks to him!
+
+Run build_bela.sh as root to start. kernel/bela_defconfig is used to configure the kernel, and all packages listed in packages.txt are installed on the image with debootstrap. To avoid rebuilding the kernel give argument --no-kernel. run ./build_bela --help for more options to skip.

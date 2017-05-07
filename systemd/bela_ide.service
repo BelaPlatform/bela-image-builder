@@ -1,0 +1,13 @@
+[Unit]
+Description=Bela IDE Launcher
+After=networking-online.target
+
+[Service]
+ExecStart=/usr/bin/node /root/Bela/IDE/index.js
+Type=simple
+Restart=always
+RestartSec=1
+WorkingDirectory=/root/Bela/IDE
+
+[Install]
+WantedBy=default.target

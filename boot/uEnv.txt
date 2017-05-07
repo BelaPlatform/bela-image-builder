@@ -1,0 +1,4 @@
+uenvcmd=load mmc 0:1 ${fdtaddr} ${dtb};load mmc 0:2 ${loadaddr} /boot/vmlinuz-${uname_r};setenv bootargs console=${console} root=/dev/mmcblk0p2 rw rootfstype=ext4 rootwait coherent_pool=1M net.ifnames=0 quiet;bootz ${loadaddr} - ${fdtaddr};
+
+console=ttyS0,115200n8
+

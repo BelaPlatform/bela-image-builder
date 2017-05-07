@@ -1,0 +1,9 @@
+kernel/kernel_version
+log.txt
+*.deb
+downloads/
+bela.img
+boot/MLO
+boot/u-boot.img
+rootfs/
+c_rootfs/
