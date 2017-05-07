@@ -31,12 +31,12 @@ git_branch="dev-kernel-4.4.y-xenomai-3-support"
 update_git
 
 git_project_name="am335x_pru_package"
-git_clone_address="https://github.com/beagleboard/am335x_pru_package.git"
+git_clone_address="https://github.com/giuliomoro/am335x_pru_package.git"
 git_branch="master"
 update_git
 
 git_project_name="prudebug"
-git_clone_address="https://github.com/poopgiggle/prudebug.git"
+git_clone_address="https://github.com/giuliomoro/prudebug.git"
 git_branch="master"
 update_git
 
