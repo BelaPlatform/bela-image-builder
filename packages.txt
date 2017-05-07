@@ -1,5 +1,6 @@
-build-essential
 man-db
+build-essential
+gdb
 vim
 less
 avahi-daemon
@@ -17,3 +18,7 @@ bison
 flex
 screen
 doxygen
+dnsutils
+apt-file
+psmisc
+midisport-firmware
