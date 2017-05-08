@@ -7,7 +7,7 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
-DEPENDENCIES="debootstrap"
+DEPENDENCIES="debootstrap qemu-arm-static"
 
 for a in $DEPENDENCIES; do
 	which $a > /dev/null ||\
