@@ -7,7 +7,7 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
-DEPENDENCIES="debootstrap qemu-arm-static"
+DEPENDENCIES="debootstrap qemu-arm-static autoreconf libtool arm-linux-gnueabihf-ranlib"
 
 for a in $DEPENDENCIES; do
 	which $a > /dev/null ||\
@@ -32,6 +32,8 @@ unset NO_KERNEL
 unset NO_ROOTFS
 unset NO_BOOTLOADER
 unset CACHED_FS
+CORES=$(getconf _NPROCESSORS_ONLN)
+
 while [ ! -z "$1" ] ; do
 	case $1 in
 	-h|--help)
@@ -100,7 +102,7 @@ if [ -f ${NO_ROOTFS} ] ; then
 	/bin/bash scripts/bootstrap
 	./configure --with-core=cobalt --enable-smp --enable-pshared --host=arm-linux-gnueabihf --build=arm CFLAGS="-march=armv7-a -mfpu=vfp3"
 	make
-	sudo make DESTDIR=${targetdir} install
+	sudo make -j${CORES} DESTDIR=${targetdir} install
 
 	sudo cp -v ${DIR}/scripts/chroot.sh $targetdir/
 	sudo chroot $targetdir/ /chroot.sh 
@@ -119,9 +121,9 @@ if [ -f ${NO_BOOTLOADER} ] ; then
 	wget -c https://rcn-ee.com/repos/git/u-boot-patches/v2017.03/0002-U-Boot-BeagleBone-Cape-Manager.patch
 	patch -p1 < 0001-am335x_evm-uEnv.txt-bootz-n-fixes.patch
 	patch -p1 < 0002-U-Boot-BeagleBone-Cape-Manager.patch
-	make ARCH=arm CROSS_COMPILE=${CC} distclean
-	make ARCH=arm CROSS_COMPILE=${CC} am335x_evm_defconfig
-	make ARCH=arm CROSS_COMPILE=${CC}
+	make -j${CORES} ARCH=arm CROSS_COMPILE=${CC} distclean
+	make -j${CORES} ARCH=arm CROSS_COMPILE=${CC} am335x_evm_defconfig
+	make -j${CORES} ARCH=arm CROSS_COMPILE=${CC}
 	cp -v MLO ${DIR}/boot/
 	cp -v u-boot.img ${DIR}/boot/
 	git reset --hard

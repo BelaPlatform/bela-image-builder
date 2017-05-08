@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+CORES=$(getconf _NPROCESSORS_ONLN)
+
 echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen
 locale-gen
 dpkg-reconfigure --frontend=noninteractive locales
@@ -31,7 +33,7 @@ cd /root/Bela
 make nostartup
 make idestartup
 ldconfig /usr/xenomai/lib
-make all PROJECT=basic
+make -j${CORES} all PROJECT=basic
 cp -v /root/Bela/resources/BELA-00A0.dtbo /lib/firmware/
 doxygen
 
@@ -42,18 +44,18 @@ apt-get install -y nodejs
 # install misc utilities
 cd "/opt/am335x_pru_package/"
 echo "~~~~ Building PRU utils ~~~~"
-make
+make -j${CORES}
 make install
 
 cd "/opt/prudebug"
 echo "~~~~ Building prudebug ~~~~"
-make
+make -j${CORES}
 cp -v ./prudebug /usr/bin/
 
 cd /opt/bb.org-dtc
 echo "~~~~ Building bb.org-dtc ~~~~"
 make clean
-make PREFIX=/usr/local CC=gcc CROSS_COMPILE= all
+make -j${CORES} PREFIX=/usr/local CC=gcc CROSS_COMPILE= all
 make PREFIX=/usr/local/ install
 ln -sf /usr/local/bin/dtc /usr/bin/dtc
 echo "dtc: `/usr/bin/dtc --version`"
@@ -62,7 +64,7 @@ make clean
 cd /opt/bb.org-overlays
 echo "~~~~ Building bb.org-overlays ~~~~"
 make clean
-make
+make -j${CORES}
 make install
 cp -v ./tools/beaglebone-universal-io/config-pin /usr/local/bin/
 make clean
