@@ -1,9 +1,10 @@
-#!/bin/bash
+#!/bin/bash -e
 
 mkdir -p ${DIR}/downloads
 cd ${DIR}/downloads
 
 update_git(){
+	printf "Updating ${git_project_name}..."
 	if [ -f ${git_project_name}/.git/config ] ; then
 		cd ${git_project_name}/
 		git pull
