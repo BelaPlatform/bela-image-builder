@@ -7,6 +7,16 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
+DEPENDENCIES="debootstrap"
+
+for a in $DEPENDENCIES; do
+	which $a > /dev/null ||\
+	{
+		echo "Dependency check failed: you should install \`$a' before continuing"
+		exit 1
+	}
+done
+
 DIR=`pwd`
 export DIR
 targetdir=${DIR}/rootfs
