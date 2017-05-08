@@ -23,10 +23,11 @@ targetdir=${DIR}/rootfs
 export targetdir
 
 usage(){
-	echo "--no-kernel --no-rootfs --cached-fs=path --no-bootloader"
+	echo "--no-downloads --no-kernel --no-rootfs --cached-fs=path --no-bootloader"
 }
 
 # parse commandline options
+unset NO_DOWNLOADS
 unset NO_KERNEL
 unset NO_ROOTFS
 unset NO_BOOTLOADER
@@ -36,6 +37,9 @@ while [ ! -z "$1" ] ; do
 	-h|--help)
 		usage
 		exit
+		;;
+	--no-downloads)
+		NO_DOWNLOADS=true
 		;;
 	--no-kernel)
 		NO_KERNEL=true
@@ -56,7 +60,9 @@ while [ ! -z "$1" ] ; do
 done
 
 # download / clone latest versions of things we need
-/bin/bash ${DIR}/scripts/downloads.sh
+if [ -f ${NO_DOWNLOADS} ] ; then
+	/bin/bash -e ${DIR}/scripts/downloads.sh
+fi
 
 # compile the kernel
 if [ -f ${NO_KERNEL} ] ; then
