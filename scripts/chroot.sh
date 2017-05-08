@@ -35,7 +35,8 @@ make idestartup
 ldconfig /usr/xenomai/lib
 make -j${CORES} all PROJECT=basic
 cp -v /root/Bela/resources/BELA-00A0.dtbo /lib/firmware/
-doxygen
+echo "~~~~ building doxygen docs ~~~~"
+doxygen > /dev/null 2>&1
 
 # install node
 /bin/bash /opt/Bela/setup_7.x
