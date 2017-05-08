@@ -87,6 +87,7 @@ echo bela > /etc/hostname
 # systemd configuration
 systemctl enable bela_gadget
 systemctl enable bela_init
+systemctl enable serial-getty@ttyGS0.service
 
 # don't do any network access in the chroot after this call
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
