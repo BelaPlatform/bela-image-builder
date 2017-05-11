@@ -6,4 +6,5 @@ bela.img
 boot/MLO
 boot/u-boot.img
 rootfs/
-c_rootfs/
+pre_chroot_backup/
+.*.sw?
