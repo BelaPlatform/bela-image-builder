@@ -20,10 +20,11 @@ done
 DIR=`pwd`
 export DIR
 targetdir=${DIR}/rootfs
+targetdir_pre_chroot_backup=${DIR}/pre_chroot_backup/rootfs
 export targetdir
 
 usage(){
-	echo "--no-downloads --no-kernel --no-rootfs --cached-fs=path --no-bootloader"
+	echo "--no-downloads --no-kernel --no-rootfs --cached-fs --do-not-cache-fs --no-bootloader"
 }
 
 # parse commandline options
@@ -32,6 +33,7 @@ unset NO_KERNEL
 unset NO_ROOTFS
 unset NO_BOOTLOADER
 unset CACHED_FS
+unset DO_NOT_CACHE_FS
 CORES=$(getconf _NPROCESSORS_ONLN)
 
 while [ ! -z "$1" ] ; do
@@ -54,8 +56,9 @@ while [ ! -z "$1" ] ; do
 		;;
 	--cached-fs)
 		CACHED_FS=true
-		sudo rm -rf rootfs
-		sudo cp -ar c_rootfs rootfs
+		;;
+	--do-not-cache-fs)
+		DO_NOT_CACHE_FS=true
 		;;
 	*)
 		echo "Unknown option $1" >&2
@@ -89,14 +92,23 @@ PATH=$PATH:`dirname $CC`
 # build the rootfs
 if [ -f ${NO_ROOTFS} ] ; then
 	echo "~~~~ building debian stretch rootfs ~~~~"
-	if [ -f ${CACHED_FS} ] ; then
-		sudo rm -rf $targetdir
+	sudo rm -rf $targetdir
+	if [ -z "${CACHED_FS}" ] ; then
 		mkdir -p $targetdir
+		mkdir $targetdir/root
 		DEB_PACKAGES=`tr "\n" "," < ${DIR}/packages.txt | sed '$ s/.$//'`
 		sudo debootstrap --arch=armhf --foreign --include=${DEB_PACKAGES} stretch $targetdir
 		sudo cp /usr/bin/qemu-arm-static $targetdir/usr/bin/
 		sudo cp /etc/resolv.conf $targetdir/etc
 		sudo chroot $targetdir debootstrap/debootstrap --second-stage
+		if [ "${DO_NOT_CACHE_FS}" != "true" ] ; then
+			echo "Backing up the pre-chroot rootfs int o $targetdir_pre_chroot_backup"
+			rm -rf $targetdir_pre_chroot_backup
+			sudo cp -ar $targetdir $targetdir_pre_chroot_backup
+		fi
+	else
+		echo "Using backup pre-chroot rootfs from $targetdir_pre_chroot_backup"
+		sudo cp -ar $targetdir_pre_chroot_backup $targetdir
 	fi
 	${DIR}/scripts/pre-chroot.sh
 
@@ -105,8 +117,8 @@ if [ -f ${NO_ROOTFS} ] ; then
 	cd "${DIR}/downloads/xenomai-3"
 	scripts/bootstrap
 	./configure --with-core=cobalt --enable-smp --enable-pshared --host=arm-linux-gnueabihf --build=arm CFLAGS="-march=armv7-a -mfpu=vfp3"
-	make
-	sudo make -j${CORES} DESTDIR=${targetdir} install
+	make -j${CORES}
+	sudo make DESTDIR=${targetdir} install
 
 	sudo cp -v ${DIR}/scripts/chroot.sh $targetdir/
 	sudo chroot $targetdir/ /chroot.sh 
