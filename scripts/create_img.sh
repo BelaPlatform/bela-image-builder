@@ -12,14 +12,17 @@ dd if=/dev/zero of=./bela.img bs=1M count=4000
 sudo sfdisk ${DIR}/bela.img < ${DIR}/bela.sfdisk
 
 # mount it
-sudo losetup /dev/loop0
-sudo kpartx -av ${DIR}/bela.img
-sudo mkfs.vfat /dev/mapper/loop0p1
-sudo mkfs.ext4 /dev/mapper/loop0p2
+LOOP=`losetup -f`
+LOOP=`echo $LOOP | sed "s/\/dev\///"`
+#sudo losetup /dev/$LOOP
+# -s makes sure the operation is applied before continuing
+sudo kpartx -s -av ${DIR}/bela.img
+sudo mkfs.vfat /dev/mapper/${LOOP}p1
+sudo mkfs.ext4 /dev/mapper/${LOOP}p2
 mkdir -p /mnt/bela/boot
 mkdir -p /mnt/bela/root
-sudo mount /dev/mapper/loop0p1 /mnt/bela/boot
-sudo mount /dev/mapper/loop0p2 /mnt/bela/root
+sudo mount /dev/mapper/${LOOP}p1 /mnt/bela/boot
+sudo mount /dev/mapper/${LOOP}p2 /mnt/bela/root
 
 # complete and copy uboot environment
 cp ${DIR}/boot/uEnv.txt ${DIR}/boot/uEnv.tmp
@@ -38,7 +41,7 @@ sudo cp -a ${DIR}/rootfs/* /mnt/bela/root/
 # unmount
 sudo umount /mnt/bela/boot
 sudo umount /mnt/bela/root
-sudo kpartx -d /dev/loop0
-sudo losetup -d /dev/loop0
+sudo kpartx -d /dev/${LOOP}
+sudo losetup -d /dev/${LOOP}
 
 echo "bela.img created"

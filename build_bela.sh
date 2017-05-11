@@ -7,7 +7,7 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
-DEPENDENCIES="debootstrap qemu-arm-static autoreconf libtool arm-linux-gnueabihf-ranlib"
+DEPENDENCIES="debootstrap qemu-arm-static autoreconf libtool arm-linux-gnueabihf-ranlib kpartx"
 
 for a in $DEPENDENCIES; do
 	which $a > /dev/null ||\
@@ -57,13 +57,17 @@ while [ ! -z "$1" ] ; do
 		sudo rm -rf rootfs
 		sudo cp -ar c_rootfs rootfs
 		;;
+	*)
+		echo "Unknown option $1" >&2
+		usage
+		exit 1
 	esac
 	shift
 done
 
 # download / clone latest versions of things we need
 if [ -f ${NO_DOWNLOADS} ] ; then
-	/bin/bash -e ${DIR}/scripts/downloads.sh
+	${DIR}/scripts/downloads.sh
 fi
 
 # compile the kernel
@@ -94,12 +98,12 @@ if [ -f ${NO_ROOTFS} ] ; then
 		sudo cp /etc/resolv.conf $targetdir/etc
 		sudo chroot $targetdir debootstrap/debootstrap --second-stage
 	fi
-	/bin/bash ${DIR}/scripts/pre-chroot.sh
+	${DIR}/scripts/pre-chroot.sh
 
 	# cross-compile xenomai
 	echo "~~~~ cross-compiling xenomai  ~~~~"
 	cd "${DIR}/downloads/xenomai-3"
-	/bin/bash scripts/bootstrap
+	scripts/bootstrap
 	./configure --with-core=cobalt --enable-smp --enable-pshared --host=arm-linux-gnueabihf --build=arm CFLAGS="-march=armv7-a -mfpu=vfp3"
 	make
 	sudo make -j${CORES} DESTDIR=${targetdir} install
@@ -134,5 +138,5 @@ fi
 
 # create SD image
 if [ -f ${NO_IMG} ] ; then
-	/bin/bash ${DIR}/scripts/create_img.sh
+	${DIR}/scripts/create_img.sh
 fi
