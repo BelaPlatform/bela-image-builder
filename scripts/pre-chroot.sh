@@ -22,7 +22,5 @@ sudo cp -v ${DIR}/systemd/bela_init.service $targetdir/lib/systemd/system/
 sudo cp -v ${DIR}/systemd/bela_ide.service $targetdir/lib/systemd/system/
 
 # maybe should go in a post-chroot.sh?
-sudo cp -v ${DIR}/misc/interfaces $targetdir/etc/network/
-sudo cp -v ${DIR}/misc/isc-dhcp-server $targetdir/etc/default/
-sudo cp -v ${DIR}/misc/dhcpd.conf $targetdir/etc/dhcp/
-sudo cp -v ${DIR}/misc/sudoers.d $targetdir/etc/sudoers.d/bela
+sudo cp -rv ${DIR}/misc/root/* $targetdir/
+exit 1
