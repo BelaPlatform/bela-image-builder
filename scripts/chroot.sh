@@ -35,7 +35,8 @@ make idestartup
 ldconfig /usr/xenomai/lib
 make -j${CORES} all PROJECT=basic
 cp -v /root/Bela/resources/BELA-00A0.dtbo /lib/firmware/
-doxygen
+echo "~~~~ building doxygen docs ~~~~"
+doxygen > /dev/null 2>&1
 
 # install node
 /bin/bash /opt/Bela/setup_7.x
@@ -86,6 +87,7 @@ echo bela > /etc/hostname
 # systemd configuration
 systemctl enable bela_gadget
 systemctl enable bela_init
+systemctl enable serial-getty@ttyGS0.service
 
 # don't do any network access in the chroot after this call
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
