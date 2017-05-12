@@ -24,7 +24,7 @@ targetdir_pre_chroot_backup=${DIR}/pre_chroot_backup/rootfs
 export targetdir
 
 usage(){
-	echo "--no-downloads --no-kernel --no-rootfs --cached-fs --do-not-cache-fs --no-bootloader"
+	echo "--no-downloads --no-kernel --no-rootfs --cached-fs --do-not-cache-fs --no-bootloader --no-build-xenomai"
 }
 
 # parse commandline options
@@ -33,8 +33,9 @@ unset NO_KERNEL
 unset NO_ROOTFS
 unset NO_BOOTLOADER
 unset CACHED_FS
+unset NO_BUILD_XENOMAI
 unset DO_NOT_CACHE_FS
-CORES=$(getconf _NPROCESSORS_ONLN)
+export CORES=$(getconf _NPROCESSORS_ONLN)
 
 while [ ! -z "$1" ] ; do
 	case $1 in
@@ -53,6 +54,9 @@ while [ ! -z "$1" ] ; do
 		;;
 	--no-bootloader)
 		NO_BOOTLOADER=true
+		;;
+	--no-build-xenomai)
+		NO_BUILD_XENOMAI=true
 		;;
 	--cached-fs)
 		CACHED_FS=true
@@ -89,6 +93,15 @@ fi
 . ${DIR}/downloads/ti-linux-kernel-dev/.CC
 PATH=$PATH:`dirname $CC`
 
+if [ -f ${NO_BUILD_XENOMAI} ] ; then
+# cross-compile xenomai
+	echo "~~~~ cross-compiling xenomai  ~~~~"
+	cd "${DIR}/downloads/xenomai-3"
+	scripts/bootstrap
+	./configure --with-core=cobalt --enable-smp --enable-pshared --host=arm-linux-gnueabihf --build=arm CFLAGS="-march=armv7-a -mfpu=vfp3"
+	make -j${CORES}
+fi
+
 # build the rootfs
 if [ -f ${NO_ROOTFS} ] ; then
 	echo "~~~~ building debian stretch rootfs ~~~~"
@@ -97,7 +110,7 @@ if [ -f ${NO_ROOTFS} ] ; then
 		mkdir -p $targetdir
 		mkdir $targetdir/root
 		DEB_PACKAGES=`tr "\n" "," < ${DIR}/packages.txt | sed '$ s/.$//'`
-		sudo debootstrap --arch=armhf --foreign --include=${DEB_PACKAGES} stretch $targetdir
+		sudo debootstrap --arch=armhf --foreign --components=main,free,non-free --include=${DEB_PACKAGES} stretch $targetdir
 		sudo cp /usr/bin/qemu-arm-static $targetdir/usr/bin/
 		sudo cp /etc/resolv.conf $targetdir/etc
 		sudo chroot $targetdir debootstrap/debootstrap --second-stage
@@ -112,13 +125,6 @@ if [ -f ${NO_ROOTFS} ] ; then
 	fi
 	${DIR}/scripts/pre-chroot.sh
 
-	# cross-compile xenomai
-	echo "~~~~ cross-compiling xenomai  ~~~~"
-	cd "${DIR}/downloads/xenomai-3"
-	scripts/bootstrap
-	./configure --with-core=cobalt --enable-smp --enable-pshared --host=arm-linux-gnueabihf --build=arm CFLAGS="-march=armv7-a -mfpu=vfp3"
-	make -j${CORES}
-	sudo make DESTDIR=${targetdir} install
 
 	sudo cp -v ${DIR}/scripts/chroot.sh $targetdir/
 	sudo chroot $targetdir/ /chroot.sh 

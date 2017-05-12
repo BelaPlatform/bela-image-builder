@@ -1,5 +1,9 @@
 man-db
+bash-completion
 build-essential
+libtool
+libtool-bin
+file
 gdb
 vim
 less
@@ -23,3 +27,6 @@ apt-file
 psmisc
 rsync
 curl
+wireless-tools
+usbutils
+firmware-misc-nonfree

@@ -2,6 +2,18 @@
 
 CORES=$(getconf _NPROCESSORS_ONLN)
 
+#uncomment till set+x to debug ldconfig
+#set +e
+#set -x 
+#grep xenomai /etc/ld.so.cache
+libtool --finish /usr/xenomai/lib
+#grep xenomai /etc/ld.so.cache
+echo "/usr/xenomai/lib" > /etc/ld.so.conf.d/xenomai.conf
+#ldconfig
+#grep xenomai /etc/ld.so.cache
+#set -e
+#set +x
+
 echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen
 locale-gen
 dpkg-reconfigure --frontend=noninteractive locales
@@ -28,11 +40,11 @@ rm -rf "/root/linux-libc-dev_1cross_armhf.deb"
 #echo "~~~~ depmod ~~~~"
 #depmod "${BELA_KERNEL_VERSION}" -a
 
+
 # install bela
 cd /root/Bela
 make nostartup
 make idestartup
-ldconfig /usr/xenomai/lib
 make -j${CORES} all PROJECT=basic
 cp -v /root/Bela/resources/BELA-00A0.dtbo /lib/firmware/
 echo "~~~~ building doxygen docs ~~~~"

@@ -21,6 +21,9 @@ sudo cp -v ${DIR}/systemd/bela_gadget.service $targetdir/lib/systemd/system/
 sudo cp -v ${DIR}/systemd/bela_init.service $targetdir/lib/systemd/system/
 sudo cp -v ${DIR}/systemd/bela_ide.service $targetdir/lib/systemd/system/
 
+# install xenomai to rootfs
+echo "~~~~ installing xenomai  ~~~~"
+sudo make -C ${DIR}/downloads/xenomai-3 install DESTDIR=$targetdir --no-print-directory
+
 # maybe should go in a post-chroot.sh?
-sudo cp -rv ${DIR}/misc/root/* $targetdir/
-exit 1
+sudo cp -rv ${DIR}/misc/rootfs/* $targetdir/
