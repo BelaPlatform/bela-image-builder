@@ -30,3 +30,4 @@ curl
 wireless-tools
 usbutils
 firmware-misc-nonfree
+wpasupplicant
