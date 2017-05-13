@@ -8,3 +8,4 @@ boot/u-boot.img
 rootfs/
 pre_chroot_backup/
 .*.sw?
+kernel/kernel_version
