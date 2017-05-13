@@ -18,6 +18,7 @@ echo "Bela" > strings/0x409/product
 mkdir -p functions/rndis.usb0           # network
 mkdir -p functions/mass_storage.0       # boot partition
 mkdir -p functions/acm.usb0             # serial
+mkdir -p functions/midi.usb0            # MIDI
 
 # mount the boot partition and make it available as mass storage
 mkdir -p /mnt/boot
@@ -29,6 +30,7 @@ echo 500 > configs/c.1/MaxPower
 ln -s functions/rndis.usb0 configs/c.1/
 ln -s functions/mass_storage.0 configs/c.1/
 ln -s functions/acm.usb0   configs/c.1/
+ln -s functions/midi.usb0 configs/c.1
 
 udevadm settle -t 5 || :
 ls /sys/class/udc/ > UDC
