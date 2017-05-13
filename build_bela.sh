@@ -93,13 +93,17 @@ fi
 . ${DIR}/downloads/ti-linux-kernel-dev/.CC
 PATH=$PATH:`dirname $CC`
 
-if [ -f ${NO_BUILD_XENOMAI} ] ; then
-# cross-compile xenomai
-	echo "~~~~ cross-compiling xenomai  ~~~~"
-	cd "${DIR}/downloads/xenomai-3"
-	scripts/bootstrap
-	./configure --with-core=cobalt --enable-smp --enable-pshared --host=arm-linux-gnueabihf --build=arm CFLAGS="-march=armv7-a -mfpu=vfp3"
-	make -j${CORES}
+if [ -f ${NO_DOWNLOADS} ]; then
+	# if we are doing downloads, and the kernel is ok then we have the cross compiler selected
+	# so we build xenomai
+	if [ -f ${NO_BUILD_XENOMAI} ] ; then
+	# cross-compile xenomai
+		echo "~~~~ cross-compiling xenomai  ~~~~"
+		cd "${DIR}/downloads/xenomai-3"
+		scripts/bootstrap
+		./configure --with-core=cobalt --enable-smp --enable-pshared --host=arm-linux-gnueabihf --build=arm CFLAGS="-march=armv7-a -mfpu=vfp3"
+		make -j${CORES}
+	fi
 fi
 
 # build the rootfs

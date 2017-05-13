@@ -6,6 +6,7 @@ CORES=$(getconf _NPROCESSORS_ONLN)
 #set +e
 #set -x 
 #grep xenomai /etc/ld.so.cache
+echo "Finish installing xenomai"
 libtool --finish /usr/xenomai/lib
 #grep xenomai /etc/ld.so.cache
 echo "/usr/xenomai/lib" > /etc/ld.so.conf.d/xenomai.conf
@@ -45,7 +46,7 @@ rm -rf "/root/linux-libc-dev_1cross_armhf.deb"
 cd /root/Bela
 make nostartup
 make idestartup
-make -j${CORES} all PROJECT=basic
+make -j${CORES} all PROJECT=basic AT=
 cp -v /root/Bela/resources/BELA-00A0.dtbo /lib/firmware/
 echo "~~~~ building doxygen docs ~~~~"
 doxygen > /dev/null 2>&1
