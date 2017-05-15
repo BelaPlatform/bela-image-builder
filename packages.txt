@@ -12,6 +12,7 @@ libnss-mdns
 isc-dhcp-server
 openssh-server
 libasound2-dev
+libsndfile1-dev
 alsa-utils
 locales
 device-tree-compiler
