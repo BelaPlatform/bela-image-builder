@@ -32,3 +32,5 @@ wireless-tools
 usbutils
 firmware-misc-nonfree
 wpasupplicant
+i2c-tools
+can-utils
