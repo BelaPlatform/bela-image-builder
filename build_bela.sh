@@ -20,6 +20,7 @@ done
 DIR=`pwd`
 export DIR
 targetdir=${DIR}/rootfs
+mkdir -p ${DIR}/pre_chroot_backup
 targetdir_pre_chroot_backup=${DIR}/pre_chroot_backup/rootfs
 export targetdir
 
