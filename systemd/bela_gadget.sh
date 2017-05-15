@@ -35,5 +35,5 @@ ln -s functions/midi.usb0 configs/c.1
 udevadm settle -t 5 || :
 ls /sys/class/udc/ > UDC
 
-ifup usb0
+# hack to ensure dhcpd has a free lease
 echo "" > /var/lib/dhcp/dhcpd.leases
