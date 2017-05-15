@@ -2,12 +2,7 @@
 
 # this script downloads, builds and compiles an image (including kernel, bootloader and rootfs) for Bela
 
-if [ "$(id -u)" != "0" ]; then
-   echo "This script must be run as root" 1>&2
-   exit 1
-fi
-
-DEPENDENCIES="debootstrap qemu-arm-static autoreconf libtool arm-linux-gnueabihf-ranlib kpartx"
+DEPENDENCIES="debootstrap qemu-arm-static autoreconf libtool arm-linux-gnueabihf-ranlib kpartx setuidgid wget"
 
 for a in $DEPENDENCIES; do
 	which $a > /dev/null ||\
@@ -17,6 +12,11 @@ for a in $DEPENDENCIES; do
 	}
 done
 
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
+
 DIR=`pwd`
 export DIR
 targetdir=${DIR}/rootfs
@@ -24,7 +24,13 @@ targetdir_pre_chroot_backup=${DIR}/pre_chroot_backup/rootfs
 export targetdir
 
 usage(){
-	echo "--no-downloads --no-kernel --no-rootfs --cached-fs --do-not-cache-fs --no-bootloader --no-build-xenomai"
+	echo "--no-downloads --no-kernel --no-rootfs --cached-fs --do-not-cache-fs --no-bootloader --no-build-xenomai --clean"
+}
+
+clean_all()
+{
+	rm -rf rootfs pre_chroot_backup downloads
+	git clean -fx
 }
 
 # parse commandline options
@@ -64,6 +70,9 @@ while [ ! -z "$1" ] ; do
 	--do-not-cache-fs)
 		DO_NOT_CACHE_FS=true
 		;;
+	--clean)
+		clean_all
+		;;
 	*)
 		echo "Unknown option $1" >&2
 		usage
@@ -72,44 +81,35 @@ while [ ! -z "$1" ] ; do
 	shift
 done
 
+export UNSU="setuidgid $SUDO_USER"
 # download / clone latest versions of things we need
 if [ -f ${NO_DOWNLOADS} ] ; then
-	${DIR}/scripts/downloads.sh
+	$UNSU ${DIR}/scripts/downloads.sh
 fi
 
 # compile the kernel
 if [ -f ${NO_KERNEL} ] ; then
-	echo "~~~~ compiling bela kernel  ~~~~"
-	cp -v ${DIR}/kernel/bela_defconfig ${DIR}/downloads/ti-linux-kernel-dev/patches/defconfig
-	cd ${DIR}/downloads/ti-linux-kernel-dev/
-	AUTO_BUILD=1
-	export AUTO_BUILD
-	/bin/bash build_deb.sh
-	cp -v ${DIR}/downloads/ti-linux-kernel-dev/deploy/*.deb ${DIR}/kernel/
-	cp -v ${DIR}/downloads/ti-linux-kernel-dev/kernel_version ${DIR}/kernel/
+	$UNSU ${DIR}/scripts/build_kernel.sh
 fi
 
 # grab the kernel's cross-compiler
 . ${DIR}/downloads/ti-linux-kernel-dev/.CC
 PATH=$PATH:`dirname $CC`
+CC=${CC}
+export CC PATH
 
 if [ -f ${NO_DOWNLOADS} ]; then
 	# if we are doing downloads, and the kernel is ok then we have the cross compiler selected
 	# so we build xenomai
 	if [ -f ${NO_BUILD_XENOMAI} ] ; then
-	# cross-compile xenomai
-		echo "~~~~ cross-compiling xenomai  ~~~~"
-		cd "${DIR}/downloads/xenomai-3"
-		scripts/bootstrap
-		./configure --with-core=cobalt --enable-smp --enable-pshared --host=arm-linux-gnueabihf --build=arm CFLAGS="-march=armv7-a -mfpu=vfp3"
-		make -j${CORES}
+		$UNSU ${DIR}/scripts/build_xenomai.sh
 	fi
 fi
 
 # build the rootfs
 if [ -f ${NO_ROOTFS} ] ; then
 	echo "~~~~ building debian stretch rootfs ~~~~"
-	sudo rm -rf $targetdir
+	rm -rf $targetdir
 	if [ -z "${CACHED_FS}" ] ; then
 		mkdir -p $targetdir
 		mkdir $targetdir/root
@@ -121,6 +121,7 @@ if [ -f ${NO_ROOTFS} ] ; then
 		if [ "${DO_NOT_CACHE_FS}" != "true" ] ; then
 			echo "Backing up the pre-chroot rootfs int o $targetdir_pre_chroot_backup"
 			rm -rf $targetdir_pre_chroot_backup
+			mkdir -p $targetdir_pre_chroot_backup
 			sudo cp -ar $targetdir $targetdir_pre_chroot_backup
 		fi
 	else
@@ -140,22 +141,7 @@ fi
 
 # compile and patch u-boot
 if [ -f ${NO_BOOTLOADER} ] ; then
-	echo "~~~~ compiling bootloader ~~~~"
-	cd ${DIR}/downloads/u-boot
-	git checkout v2017.03 -b tmp
-	wget -c https://rcn-ee.com/repos/git/u-boot-patches/v2017.03/0001-am335x_evm-uEnv.txt-bootz-n-fixes.patch
-	wget -c https://rcn-ee.com/repos/git/u-boot-patches/v2017.03/0002-U-Boot-BeagleBone-Cape-Manager.patch
-	patch -p1 < 0001-am335x_evm-uEnv.txt-bootz-n-fixes.patch
-	patch -p1 < 0002-U-Boot-BeagleBone-Cape-Manager.patch
-	make -j${CORES} ARCH=arm CROSS_COMPILE=${CC} distclean
-	make -j${CORES} ARCH=arm CROSS_COMPILE=${CC} am335x_evm_defconfig
-	make -j${CORES} ARCH=arm CROSS_COMPILE=${CC}
-	cp -v MLO ${DIR}/boot/
-	cp -v u-boot.img ${DIR}/boot/
-	git reset --hard
-	git checkout master
-	git branch -d tmp
-	git clean -fd
+	$UNSU ${DIR}/scripts/build_bootloader.sh
 fi
 
 # create SD image
