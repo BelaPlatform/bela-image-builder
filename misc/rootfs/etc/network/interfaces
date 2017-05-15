@@ -1,7 +1,28 @@
-# Interfaces(5) file used by ifup(8) and ifdown(8)
-# Include files from /etc/network/interfaces.d:
-source-directory /etc/network/interfaces.d
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
 
+# Ethernet/RNDIS gadget (g_ether)
+# ... or on host side, usbnet and random hwaddr
 iface usb0 inet static
-        address 192.168.7.2
+    address 192.168.7.2
+    netmask 255.255.255.0
+    network 192.168.7.0
+    gateway 192.168.7.1
+    post-up /etc/network/if-up.d/my
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug eth0
+iface eth0 inet dhcp
+# Example to keep MAC address between reboots
+#hwaddress ether DE:AD:BE:EF:CA:FE
+
+# WiFi Example
+#allow-hotplug wlan0
+#iface wlan0 inet dhcp
+#wpa-ssid "yourSSID"
+#wpa-psk  "yourPassword"
 
