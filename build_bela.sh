@@ -24,7 +24,7 @@ targetdir_pre_chroot_backup=${DIR}/pre_chroot_backup/rootfs
 export targetdir
 
 usage(){
-	echo "--no-downloads --no-kernel --no-rootfs --cached-fs --do-not-cache-fs --no-bootloader --no-build-xenomai --clean"
+	echo "--no-downloads --no-kernel --fast-kernel --no-rootfs --cached-fs --do-not-cache-fs --no-bootloader --no-build-xenomai --clean"
 }
 
 clean_all()
@@ -36,6 +36,7 @@ clean_all()
 # parse commandline options
 unset NO_DOWNLOADS
 unset NO_KERNEL
+unset FAST_KERNEL
 unset NO_ROOTFS
 unset NO_BOOTLOADER
 unset CACHED_FS
@@ -54,6 +55,9 @@ while [ ! -z "$1" ] ; do
 		;;
 	--no-kernel)
 		NO_KERNEL=true
+		;;
+	--fast-kernel)
+		FAST_KERNEL=true
 		;;
 	--no-rootfs)
 		NO_ROOTFS=true
@@ -89,6 +93,7 @@ fi
 
 # compile the kernel
 if [ -f ${NO_KERNEL} ] ; then
+	export FAST_KERNEL
 	$UNSU ${DIR}/scripts/build_kernel.sh
 fi
 
