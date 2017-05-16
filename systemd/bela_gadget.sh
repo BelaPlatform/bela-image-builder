@@ -18,9 +18,7 @@ mkdir -p functions/mass_storage.0       # boot partition
 mkdir -p functions/acm.usb0             # serial
 mkdir -p functions/midi.usb0            # MIDI
 
-# mount the boot partition and make it available as mass storage
-mkdir -p /mnt/boot
-mount /dev/mmcblk0p1 /mnt/boot
+# make boot partition available as mass storage
 echo /dev/mmcblk0p1 > functions/mass_storage.0/lun.0/file
 
 mkdir -p configs/c.1
