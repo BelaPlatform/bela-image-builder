@@ -5,7 +5,7 @@ downloads/
 bela.img
 boot/MLO
 boot/u-boot.img
-rootfs/
+/rootfs/
 pre_chroot_backup/
 .*.sw?
 kernel/kernel_version
