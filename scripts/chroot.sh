@@ -101,6 +101,7 @@ echo bela > /etc/hostname
 systemctl enable bela_gadget
 systemctl enable bela_init
 systemctl enable serial-getty@ttyGS0.service
+systemctl enable ssh_shutdown
 
 # don't do any network access in the chroot after this call
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
