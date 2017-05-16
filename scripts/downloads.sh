@@ -23,7 +23,7 @@ update_git
 
 git_project_name="xenomai-3"
 git_clone_address="git://git.xenomai.org/xenomai-3.git"
-git_branch="master"
+git_branch="stable-3.0.x"
 update_git
 
 git_project_name="Bela"
