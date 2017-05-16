@@ -1,7 +1,5 @@
 #!/bin/bash -e
  
-modprobe libcomposite
- 
 cd /sys/kernel/config/usb_gadget/
 mkdir g && cd g
  
