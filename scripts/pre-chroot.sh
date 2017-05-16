@@ -14,13 +14,6 @@ sudo cp -r ${DIR}/downloads/am335x_pru_package $targetdir/opt/
 sudo cp -r ${DIR}/downloads/bb.org-overlays $targetdir/opt/
 sudo cp -r ${DIR}/downloads/bb.org-dtc $targetdir/opt/
 
-sudo cp -v ${DIR}/systemd/bela_gadget.sh $targetdir/opt/Bela/
-sudo cp -v ${DIR}/systemd/bela_init.sh $targetdir/opt/Bela/
-
-sudo cp -v ${DIR}/systemd/bela_gadget.service $targetdir/lib/systemd/system/
-sudo cp -v ${DIR}/systemd/bela_init.service $targetdir/lib/systemd/system/
-sudo cp -v ${DIR}/systemd/bela_ide.service $targetdir/lib/systemd/system/
-
 # install xenomai to rootfs
 echo "~~~~ installing xenomai  ~~~~"
 sudo make -C ${DIR}/downloads/xenomai-3 install DESTDIR=$targetdir --no-print-directory
