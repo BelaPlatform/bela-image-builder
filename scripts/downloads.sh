@@ -18,7 +18,7 @@ update_git(){
 
 git_project_name="ti-linux-kernel-dev"
 git_clone_address="https://github.com/RobertCNelson/ti-linux-kernel-dev"
-git_branch="ti-linux-xenomai-4.4.y"
+git_branch="ti-linux-xenomai-4.9.y"
 update_git
 
 git_project_name="xenomai-3"
