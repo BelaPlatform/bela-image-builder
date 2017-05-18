@@ -20,7 +20,7 @@ fi
 DIR=`pwd`
 export DIR
 targetdir=${DIR}/rootfs
-targetdir_pre_chroot_backup=${DIR}/pre_chroot_backup/rootfs
+targetdir_pre_chroot_backup=${DIR}/pre_chroot_backup
 export targetdir
 
 usage(){
@@ -131,7 +131,7 @@ if [ -f ${NO_ROOTFS} ] ; then
 		fi
 	else
 		echo "Using backup pre-chroot rootfs from $targetdir_pre_chroot_backup"
-		sudo cp -ar $targetdir_pre_chroot_backup $targetdir
+		sudo cp -ar $targetdir_pre_chroot_backup/rootfs $targetdir
 	fi
 	${DIR}/scripts/pre-chroot.sh
 
