@@ -46,6 +46,8 @@ rm -rf "/root/linux-libc-dev_1cross_armhf.deb"
 cd /root/Bela
 make nostartup
 make idestartup
+mkdir -p /root/Bela/projects
+cp -rv /root/Bela/IDE/templates/basic /root/Bela/projects/
 make -j${CORES} all PROJECT=basic AT=
 cp -v /root/Bela/resources/BELA-00A0.dtbo /lib/firmware/
 echo "~~~~ building doxygen docs ~~~~"
