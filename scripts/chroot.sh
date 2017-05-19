@@ -40,7 +40,7 @@ rm -rf "/root/linux-headers-${BELA_KERNEL_VERSION}_1cross_armhf.deb"
 rm -rf "/root/linux-libc-dev_1cross_armhf.deb"
 #echo "~~~~ depmod ~~~~"
 #depmod "${BELA_KERNEL_VERSION}" -a
-
+rm -rf /root/*.deb
 
 # install bela
 cd /root/Bela
