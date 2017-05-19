@@ -1,9 +1,0 @@
-[Unit]
-Description=Bela Initialisation Service
-
-[Service]
-ExecStart=/opt/Bela/bela_init.sh
-Type=simple
-
-[Install]
-WantedBy=default.target

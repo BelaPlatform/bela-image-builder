@@ -99,7 +99,6 @@ echo bela > /etc/hostname
 
 # systemd configuration
 systemctl enable bela_gadget
-systemctl enable bela_init
 systemctl enable serial-getty@ttyGS0.service
 systemctl enable ssh_shutdown
 
