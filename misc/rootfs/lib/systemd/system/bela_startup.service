@@ -1,0 +1,14 @@
+[Unit]
+Description=Run Bela as early as possible at boot
+DefaultDependencies=no
+After=local-fs.target
+Conflicts=shutdown.target
+Before=shutdown.target
+
+[Service]
+EnvironmentFile=/opt/Bela/startup_env
+ExecStart=/usr/bin/stdbuf -i0 -e0 -o0 /root/Bela/projects/${PROJECT}/${PROJECT} "$ARGS"
+Type=simple
+
+[Install]
+WantedBy=local-fs.target
