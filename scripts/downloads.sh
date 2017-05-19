@@ -56,6 +56,11 @@ git_clone_address="https://github.com/RobertCNelson/dtc"
 git_branch="dtc-v1.4.4"
 update_git
 
+git_project_name="dtb-rebuilder"
+git_clone_address="https://github.com/LBDonovan/dtb-rebuilder.git"
+git_branch="4.4-ti"
+update_git
+
 if [ ! -d "clang+llvm-4.0.0-armv7a-linux-gnueabihf" ]; then
 	if [ ! -f "clang+llvm-4.0.0-armv7a-linux-gnueabihf.tar.xz" ]; then
 		wget "http://releases.llvm.org/4.0.0/clang+llvm-4.0.0-armv7a-linux-gnueabihf.tar.xz"

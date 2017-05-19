@@ -37,7 +37,7 @@ rm ${DIR}/boot/uEnv.tmp
 # copy bootloader and dtb
 sudo cp -v ${DIR}/boot/MLO /mnt/bela/boot/
 sudo cp -v ${DIR}/boot/u-boot.img /mnt/bela/boot/
-sudo cp -v ${DIR}/downloads/Bela/resources/am335x-bone-bela.dtb /mnt/bela/boot/
+sudo cp -v $targetdir/opt/Bela/am335x-bone-bela.dtb /mnt/bela/boot/
 # copy rootfs
 sudo cp -a ${DIR}/rootfs/* /mnt/bela/root/
 
