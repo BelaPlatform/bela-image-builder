@@ -14,6 +14,8 @@ sudo cp -r ${DIR}/downloads/am335x_pru_package $targetdir/opt/
 sudo cp -r ${DIR}/downloads/bb.org-overlays $targetdir/opt/
 sudo cp -r ${DIR}/downloads/bb.org-dtc $targetdir/opt/
 sudo cp -r ${DIR}/downloads/dtb-rebuilder $targetdir/opt/
+sudo cp -r ${DIR}/downloads/boot-scripts $targetdir/opt/
+mv $targetdir/opt/boot-scripts $targetdir/opt/bb.org-scripts
 
 # install xenomai to rootfs
 echo "~~~~ installing xenomai  ~~~~"
