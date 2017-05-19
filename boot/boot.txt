@@ -1,0 +1,9 @@
+Unless the boot button on the bbb is pushed, the first-stage bootloader MLO is loaded from the emmc. It loads the second-stage bootloader, u-boot.img, also from the emmc. 
+
+On bbbs with newer images or with Bela's custom bootloaders flashed to their emmcs, u-boot loads uEnv.txt from the SD card's BELABOOT FAT32 partition and executes uenvcmd. This loads am335x-bone-bela.dtb from BELABOOT and the kernel from /boot from the rootfs partition. It then boots the kernel.
+
+On bbbs with older images on their emmcs, the uEnv.txt either doesn't get loaded, or uenvcmd does not get executed, so they don't boot.
+
+Bela's custom bootloaders which can be found in this folder are 3-4 seconds faster than the defaults. They can be flashed onto the emmc using the script /opt/Bela/bela_bootloader.sh.
+
+The uEnv.txt on the BELABOOT partition can be edited to change the dtb, kernel, kernel command line, or bootloader boot command.
