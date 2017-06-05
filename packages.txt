@@ -8,6 +8,7 @@ gdb
 vim
 less
 avahi-daemon
+cmake
 libnss-mdns
 isc-dhcp-server
 openssh-server
