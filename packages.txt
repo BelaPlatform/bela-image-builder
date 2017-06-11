@@ -1,8 +1,10 @@
 man-db
 bash-completion
 build-essential
+dh-autoreconf
 libtool
 libtool-bin
+libltdl-dev
 file
 gdb
 vim
