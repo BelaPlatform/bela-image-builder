@@ -16,6 +16,19 @@ sudo cp -r ${DIR}/downloads/dtb-rebuilder $targetdir/opt/
 sudo cp -r ${DIR}/downloads/boot-scripts $targetdir/opt/bb.org-scripts
 sudo cp -r ${DIR}/downloads/xenomai-3 $targetdir/opt/
 
+# get some missing folders from the kernel
+# TODO: get the `uname -r`at this point to get the $DESTDIR 100% right
+KERNEL_DIR_HOST=${DIR}/downloads/ti-linux-kernel-dev/KERNEL
+MISSING_DIR=security/selinux/include
+DESTDIR=$targetdir/usr/src/linux-headers*xenomai*
+
+mkdir -p $DESTDIR/$MISSING_DIR
+sudo cp -r $KERNEL_DIR_HOST/$MISSING_DIR/* $DESTDIR/$MISSING_DIR
+
+MISSING_DIR=tools/include
+mkdir -p $DESTDIR/$MISSING_DIR
+sudo cp -r $KERNEL_DIR_HOST/$MISSING_DIR/* $DESTDIR/$MISSING_DIR
+
 # install xenomai to rootfs
 echo "~~~~ installing xenomai  ~~~~"
 sudo make -C ${DIR}/downloads/xenomai-3 install DESTDIR=$targetdir --no-print-directory
