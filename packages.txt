@@ -37,6 +37,8 @@ curl
 wireless-tools
 usbutils
 firmware-misc-nonfree
+firmware-ti-connectivity
+firmware-realtek
 wpasupplicant
 i2c-tools
 can-utils
