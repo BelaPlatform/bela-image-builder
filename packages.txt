@@ -42,3 +42,4 @@ i2c-tools
 can-utils
 dosfstools
 python-dev
+manpages-dev
