@@ -57,7 +57,7 @@ git_branch="dtc-v1.4.4"
 update_git
 
 git_project_name="dtb-rebuilder"
-git_clone_address="https://github.com/LBDonovan/dtb-rebuilder.git"
+git_clone_address="https://github.com/BelaPlatform/dtb-rebuilder.git"
 git_branch="4.4-ti"
 update_git
 
