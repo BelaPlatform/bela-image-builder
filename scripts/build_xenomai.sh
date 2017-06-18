@@ -9,5 +9,5 @@ CC=${CC}gcc
 echo "~~~~ cross-compiling xenomai  ~~~~"
 cd "${DIR}/downloads/xenomai-3"
 scripts/bootstrap
-./configure --with-core=cobalt --enable-smp --enable-pshared --host=arm-linux-gnueabihf --build=arm CFLAGS="-march=armv7-a -mfpu=vfp3"
+./configure --with-core=cobalt --enable-smp --enable-pshared --host=arm-linux-gnueabihf --build=arm CFLAGS="-march=armv7-a -mfpu=vfp3 -no-pie -fno-pie" LDFLAGS="-no-pie -fno-pie"
 make -j${CORES}
