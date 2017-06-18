@@ -7,6 +7,7 @@ update_git(){
 	printf "Updating ${git_project_name}..."
 	if [ -f ${git_project_name}/.git/config ] ; then
 		cd ${git_project_name}/
+		git checkout --force $git_branch
 		git pull
 		git rev-parse HEAD > gitcommithash
 		cd -
