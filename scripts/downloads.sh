@@ -4,11 +4,17 @@ mkdir -p ${DIR}/downloads
 cd ${DIR}/downloads
 
 update_git(){
+	git_tag=$1
 	printf "Updating ${git_project_name}..."
 	if [ -f ${git_project_name}/.git/config ] ; then
 		cd ${git_project_name}/
 		git checkout --force $git_branch
 		git pull
+		if [ -n "$git_tag" ]
+		then
+			git branch -D $git_tag || true
+			git checkout -b $git_tag $git_tag
+		fi
 		git rev-parse HEAD > gitcommithash
 		cd -
 	else
