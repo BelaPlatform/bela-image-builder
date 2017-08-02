@@ -66,6 +66,11 @@ git_clone_address="https://github.com/RobertCNelson/boot-scripts.git"
 git_branch="master"
 update_git
 
+git_project_name="seasocks"
+git_clone_address="https://github.com/mattgodbolt/seasocks.git"
+git_branch="master"
+update_git
+
 if [ ! -d "clang+llvm-4.0.0-armv7a-linux-gnueabihf" ]; then
 	if [ ! -f "clang+llvm-4.0.0-armv7a-linux-gnueabihf.tar.xz" ]; then
 		wget "http://releases.llvm.org/4.0.0/clang+llvm-4.0.0-armv7a-linux-gnueabihf.tar.xz"

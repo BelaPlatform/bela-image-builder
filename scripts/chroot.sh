@@ -92,6 +92,17 @@ make src/arm/am335x-bone-bela.dtb
 cp -v src/arm/am335x-bone-bela.dtb /opt/Bela/
 make clean
 
+cd /opt/seasocks
+echo "~~~~ Building Seasocks ~~~~"
+mkdir build
+cd build
+cmake ..
+make
+make install
+cd /root
+rm -rf /opt/seasocks/build
+ldconfig
+
 # clear root password
 passwd -d root
 
