@@ -4,10 +4,17 @@ mkdir -p ${DIR}/downloads
 cd ${DIR}/downloads
 
 update_git(){
+	git_tag=$1
 	printf "Updating ${git_project_name}..."
 	if [ -f ${git_project_name}/.git/config ] ; then
 		cd ${git_project_name}/
+		git checkout --force $git_branch
 		git pull
+		if [ -n "$git_tag" ]
+		then
+			git branch -D $git_tag || true
+			git checkout -b $git_tag $git_tag
+		fi
 		git rev-parse HEAD > gitcommithash
 		cd -
 	else
@@ -57,7 +64,7 @@ git_branch="dtc-v1.4.4"
 update_git
 
 git_project_name="dtb-rebuilder"
-git_clone_address="https://github.com/LBDonovan/dtb-rebuilder.git"
+git_clone_address="https://github.com/BelaPlatform/dtb-rebuilder.git"
 git_branch="4.4-ti"
 update_git
 

@@ -31,13 +31,14 @@ sudo mount /dev/mapper/${LOOP}p2 /mnt/bela/root
 cp ${DIR}/boot/uEnv.txt ${DIR}/boot/uEnv.tmp
 echo "uname_r=`cat ${DIR}/kernel/kernel_version`" >> ${DIR}/boot/uEnv.tmp
 echo "dtb=am335x-bone-bela.dtb" >> ${DIR}/boot/uEnv.tmp
+echo "#dtb=am335x-bone-bela-black-wireless.dtb" >> ${DIR}/boot/uEnv.tmp
 sudo cp -v ${DIR}/boot/uEnv.tmp /mnt/bela/boot/uEnv.txt
 rm ${DIR}/boot/uEnv.tmp
 
 # copy bootloader and dtb
 sudo cp -v ${DIR}/boot/MLO /mnt/bela/boot/
 sudo cp -v ${DIR}/boot/u-boot.img /mnt/bela/boot/
-sudo cp -v $targetdir/opt/Bela/am335x-bone-bela.dtb /mnt/bela/boot/
+sudo cp -v $targetdir/opt/Bela/am335x-bone-bela*.dtb /mnt/bela/boot/
 # copy rootfs
 sudo cp -a ${DIR}/rootfs/* /mnt/bela/root/
 

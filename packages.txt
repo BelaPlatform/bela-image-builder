@@ -1,8 +1,10 @@
 man-db
 bash-completion
 build-essential
+dh-autoreconf
 libtool
 libtool-bin
+libltdl-dev
 file
 gdb
 vim
@@ -35,8 +37,11 @@ curl
 wireless-tools
 usbutils
 firmware-misc-nonfree
+firmware-ti-connectivity
+firmware-realtek
 wpasupplicant
 i2c-tools
 can-utils
 dosfstools
 python-dev
+manpages-dev

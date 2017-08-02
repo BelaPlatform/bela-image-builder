@@ -10,6 +10,7 @@ echo "Finish installing xenomai"
 libtool --finish /usr/xenomai/lib
 #grep xenomai /etc/ld.so.cache
 echo "/usr/xenomai/lib" > /etc/ld.so.conf.d/xenomai.conf
+echo "/root/Bela/lib" > /etc/ld.so.conf.d/bela.conf
 ldconfig
 #grep xenomai /etc/ld.so.cache
 #set -e
@@ -90,6 +91,8 @@ echo "~~~~ Building Bela dtb ~~~~"
 make clean
 make src/arm/am335x-bone-bela.dtb
 cp -v src/arm/am335x-bone-bela.dtb /opt/Bela/
+make src/arm/am335x-bone-bela-black-wireless.dtb
+cp -v src/arm/am335x-bone-bela-black-wireless.dtb /opt/Bela/
 make clean
 
 cd /opt/seasocks
