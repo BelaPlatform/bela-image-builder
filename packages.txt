@@ -45,3 +45,4 @@ can-utils
 dosfstools
 python-dev
 manpages-dev
+libssl-dev
