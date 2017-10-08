@@ -4,7 +4,6 @@
 sudo cp -v ${DIR}/kernel/*.deb $targetdir/root/
 sudo cp -v ${DIR}/kernel/kernel_version $targetdir/root/
 sudo cp -r ${DIR}/downloads/Bela $targetdir/root/
-sudo cp -R ${DIR}/downloads/clang+llvm-4.0.0-armv7a-linux-gnueabihf/* $targetdir/usr/local/
 
 sudo mkdir -p $targetdir/opt/Bela
 sudo cp -v ${DIR}/downloads/setup_7.x $targetdir/opt/Bela/

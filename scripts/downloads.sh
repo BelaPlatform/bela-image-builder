@@ -78,14 +78,6 @@ git_clone_address="https://github.com/mattgodbolt/seasocks.git"
 git_branch="master"
 update_git
 
-if [ ! -d "clang+llvm-4.0.0-armv7a-linux-gnueabihf" ]; then
-	if [ ! -f "clang+llvm-4.0.0-armv7a-linux-gnueabihf.tar.xz" ]; then
-		wget "http://releases.llvm.org/4.0.0/clang+llvm-4.0.0-armv7a-linux-gnueabihf.tar.xz"
-	fi
-	echo "extracting clang"
-	tar -xf clang+llvm-4.0.0-armv7a-linux-gnueabihf.tar.xz 
-fi
-
 if [ ! -f "setup_7.x" ] ; then
 	wget https://deb.nodesource.com/setup_7.x
 fi

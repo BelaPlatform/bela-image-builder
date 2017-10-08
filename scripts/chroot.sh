@@ -106,6 +106,15 @@ cd /root
 rm -rf /opt/seasocks/build
 ldconfig
 
+
+echo "~~~~ Setting-up clang ~~~~"
+# We should have both 3.8 and 3.9 installed by now.
+# Get rid of 3.8
+apt-get remove clang-3.8
+# Make 3.9 default
+update-alternatives --install /usr/bin/clang++ clang++ `which clang++-3.9` 100
+update-alternatives --install /usr/bin/clang clang `which clang-3.9` 100
+
 # clear root password
 passwd -d root
 
