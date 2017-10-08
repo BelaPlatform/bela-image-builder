@@ -43,6 +43,12 @@ rm -rf "/root/linux-libc-dev_1cross_armhf.deb"
 #depmod "${BELA_KERNEL_VERSION}" -a
 rm -rf /root/*.deb
 
+# install misc utilities
+cd "/opt/am335x_pru_package/"
+echo "~~~~ Building PRU utils ~~~~"
+make -j${CORES}
+make install
+
 # install bela
 cd /root/Bela
 make nostartup
@@ -57,12 +63,6 @@ doxygen > /dev/null 2>&1
 # install node
 /bin/bash /opt/Bela/setup_7.x
 apt-get install -y nodejs
-
-# install misc utilities
-cd "/opt/am335x_pru_package/"
-echo "~~~~ Building PRU utils ~~~~"
-make -j${CORES}
-make install
 
 cd "/opt/prudebug"
 echo "~~~~ Building prudebug ~~~~"
