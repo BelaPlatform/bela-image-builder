@@ -47,3 +47,4 @@ python-dev
 manpages-dev
 libssl-dev
 clang-3.9
+checkinstall
