@@ -35,7 +35,7 @@ update_git
 
 git_project_name="Bela"
 git_clone_address="https://github.com/BelaPlatform/Bela.git"
-git_branch="dev-kernel-4.4.y-xenomai-3-support"
+git_branch="topic/xenomai-3-stable"
 update_git
 
 git_project_name="am335x_pru_package"
