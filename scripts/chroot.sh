@@ -43,11 +43,25 @@ rm -rf "/root/linux-libc-dev_1cross_armhf.deb"
 #depmod "${BELA_KERNEL_VERSION}" -a
 rm -rf /root/*.deb
 
+# install kernel headers
+cd "lib/modules/${BELA_KERNEL_VERSION}/build"
+echo "~~~~ Building kernel headers ~~~~"
+make headers_check
+make headers_install
+make scripts
+
 # install misc utilities
 cd "/opt/am335x_pru_package/"
 echo "~~~~ Building PRU utils ~~~~"
 make -j${CORES}
 make install
+
+# install kernel module
+cd "/opt/rtdm_pruss_irq"
+echo "~~~~ Building kernel module ~~~~"
+make all UNAME=${BELA_KERNEL_VERSION}
+make install UNAME=${BELA_KERNEL_VERSION}
+make clean UNAME=${BELA_KERNEL_VERSION}
 
 # install seasocks (websocket library)
 cd /opt/seasocks

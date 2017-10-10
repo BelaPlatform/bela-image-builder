@@ -78,6 +78,11 @@ git_clone_address="https://github.com/mattgodbolt/seasocks.git"
 git_branch="master"
 update_git
 
+git_project_name="rtdm_pruss_irq"
+git_clone_address="https://github.com/giuliomoro/rtdm_pruss_irq"
+git_branch="master"
+update_git
+
 if [ ! -f "setup_7.x" ] ; then
 	wget https://deb.nodesource.com/setup_7.x
 fi
