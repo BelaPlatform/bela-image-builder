@@ -71,9 +71,9 @@ cd /opt/seasocks
 echo "~~~~ Building Seasocks ~~~~"
 mkdir build
 cd build
-cmake .. -DDEFLATE_SUPPORT=OFF
-make
-make install
+cmake .. -DDEFLATE_SUPPORT=OFF -DUNITTESTS=OFF
+make seasocks seasocks_so
+/usr/bin/cmake -P cmake_install.cmake
 cd /root
 rm -rf /opt/seasocks/build
 ldconfig
