@@ -68,7 +68,7 @@ cd /opt/seasocks
 echo "~~~~ Building Seasocks ~~~~"
 mkdir build
 cd build
-cmake ..
+cmake .. -DDEFLATE_SUPPORT=OFF
 make
 make install
 cd /root
