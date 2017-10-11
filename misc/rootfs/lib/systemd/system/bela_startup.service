@@ -1,7 +1,7 @@
 [Unit]
 Description=Run Bela at boot
 DefaultDependencies=no
-After=local-fs.target
+After=network-pre.target
 Conflicts=shutdown.target
 Before=shutdown.target
 
