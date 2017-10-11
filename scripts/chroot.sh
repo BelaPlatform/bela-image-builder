@@ -26,11 +26,17 @@ export LANGUAGE="en_GB.UTF-8"
 export LANG="en_GB.UTF-8"
 export LC_ALL="en_GB.UTF-8"
 
+
+echo "~~~~ Install .deb files ~~~~"
+cd /opt/deb
+dpkg -i *deb
+rm -rf /opt/deb
+
+echo "~~~~ installing bela kernel ~~~~"
 # install the kernel
 BELA_KERNEL_VERSION=`cat /root/kernel_version`
 mv /root/kernel_version /opt/Bela/
 
-echo "~~~~ installing bela kernel ~~~~"
 dpkg -i "/root/linux-image-${BELA_KERNEL_VERSION}_1cross_armhf.deb"
 rm -rf "/root/linux-image-${BELA_KERNEL_VERSION}_1cross_armhf.deb"
 echo "~~~~ firmware ~~~~"
@@ -47,7 +53,7 @@ rm -rf "/root/linux-libc-dev_1cross_armhf.deb"
 rm -rf /root/*.deb
 
 # install kernel headers
-cd "lib/modules/${BELA_KERNEL_VERSION}/build"
+cd "/lib/modules/${BELA_KERNEL_VERSION}/build"
 echo "~~~~ Building kernel headers ~~~~"
 make headers_check
 make headers_install
@@ -90,6 +96,7 @@ make idestartup
 mkdir -p /root/Bela/projects
 cp -rv /root/Bela/IDE/templates/basic /root/Bela/projects/
 make -j${CORES} all PROJECT=basic AT=
+make -j${CORES} lib
 cp -v /root/Bela/resources/BELA-00A0.dtbo /lib/firmware/
 echo "~~~~ building doxygen docs ~~~~"
 doxygen > /dev/null 2>&1
@@ -128,7 +135,6 @@ cp -v src/arm/am335x-bone-bela.dtb /opt/Bela/
 make src/arm/am335x-bone-bela-black-wireless.dtb
 cp -v src/arm/am335x-bone-bela-black-wireless.dtb /opt/Bela/
 make clean
-
 
 # clear root password
 passwd -d root

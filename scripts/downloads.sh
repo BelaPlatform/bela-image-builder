@@ -88,3 +88,8 @@ if [ ! -f "setup_7.x" ] ; then
 	wget https://deb.nodesource.com/setup_7.x
 fi
 
+rm -rf deb
+mkdir -p deb && cd deb
+# get SuperCollider. TODO: track the most recent release
+wget "https://github.com/giuliomoro/supercollider/releases/download/3.9dev-Bela-build_20171011/supercollider-bela-xenomai-3_3.9dev-build_20171011_armhf.deb"
+

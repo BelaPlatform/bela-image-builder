@@ -16,6 +16,7 @@ sudo cp -r ${DIR}/downloads/seasocks $targetdir/opt/
 sudo cp -r ${DIR}/downloads/boot-scripts $targetdir/opt/bb.org-scripts
 sudo cp -r ${DIR}/downloads/xenomai-3 $targetdir/opt/
 sudo cp -r ${DIR}/downloads/rtdm_pruss_irq $targetdir/opt/
+sudo cp -r ${DIR}/downloads/deb $targetdir/opt/
 
 # get some missing folders from the kernel
 KERNEL_DIR_HOST=${DIR}/downloads/ti-linux-kernel-dev/KERNEL
