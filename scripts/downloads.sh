@@ -8,6 +8,7 @@ update_git(){
 	printf "Updating ${git_project_name}..."
 	if [ -f ${git_project_name}/.git/config ] ; then
 		cd ${git_project_name}/
+		git fetch
 		git checkout --force $git_branch
 		git pull
 		if [ -n "$git_tag" ]
