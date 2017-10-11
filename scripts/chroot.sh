@@ -2,6 +2,9 @@
 
 CORES=$(getconf _NPROCESSORS_ONLN)
 
+echo "~~~~ Updating the packages database ~~~~"
+apt-get update
+
 #uncomment till set+x to debug ldconfig
 #set +e
 #set -x 
