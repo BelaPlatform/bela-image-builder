@@ -9,7 +9,7 @@ echo "creating Bela SD image"
 dd if=/dev/zero of=${DIR}/bela.img bs=1M count=4000
 
 # partition it
-sudo sfdisk ${DIR}/bela.img < ${DIR}/bela.sfdisk
+sudo sfdisk ${DIR}/bela.img < ${DIR}/misc/rootfs/opt/Bela/bela.sfdisk
 
 # mount it
 LOOP=`losetup -f`
