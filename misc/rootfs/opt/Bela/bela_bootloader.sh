@@ -46,6 +46,20 @@ if [ $board != "am335x_evm" ] ; then
 	exit
 fi
 
+if [ $bootloader_location = "fatfs_boot" ] ; then
+	echo "fatfs_boot"
+	mkdir -p /tmp/boot
+	cp -a /mnt/emmc/* /tmp/boot/
+	rm /tmp/boot/MLO
+	rm /tmp/boot/u-boot.img
+	rm -rf /mnt/emmc/*
+	sync
+	cp /mnt/boot/MLO /mnt/emmc/
+	cp /mnt/boot/u-boot.img /mnt/emmc/
+	cp -a /tmp/boot/* /mnt/emmc/
+	umount /mnt/emmc
+	exit
+fi
 
 if [ "x${dd_spl_uboot_seek}" = "x" ] ; then
 	echo "dd_spl_uboot_seek not found in ${DRIVE}/SOC.sh halting"
