@@ -1,0 +1,7 @@
+# partition table of ../b.img
+unit: sectors
+
+../b.img1 : start=       63, size=   144522, Id= c, bootable
+../b.img2 : start=   144585, size=  7408439, Id=83
+../b.img3 : start=        0, size=        0, Id= 0
+../b.img4 : start=        0, size=        0, Id= 0

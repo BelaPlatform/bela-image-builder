@@ -24,7 +24,7 @@ targetdir_pre_chroot_backup=${DIR}/pre_chroot_backup
 export targetdir
 
 usage(){
-	echo "--no-downloads --no-kernel --fast-kernel --no-rootfs --cached-fs --do-not-cache-fs --no-bootloader --no-build-xenomai --clean"
+	echo "--no-downloads --no-kernel --fast-kernel --no-rootfs --cached-fs --do-not-cache-fs --no-bootloader --no-build-xenomai --emmc-flasher --clean"
 }
 
 clean_all()
@@ -42,6 +42,7 @@ unset NO_BOOTLOADER
 unset CACHED_FS
 unset NO_BUILD_XENOMAI
 unset DO_NOT_CACHE_FS
+unset EMMC_FLASHER
 export CORES=$(getconf _NPROCESSORS_ONLN)
 
 while [ ! -z "$1" ] ; do
@@ -76,6 +77,9 @@ while [ ! -z "$1" ] ; do
 		;;
 	--clean)
 		clean_all
+		;;
+	--emmc-flasher)
+		EMMC_FLASHER=true
 		;;
 	*)
 		echo "Unknown option $1" >&2
@@ -147,6 +151,14 @@ fi
 # compile and patch u-boot
 if [ -f ${NO_BOOTLOADER} ] ; then
 	$UNSU ${DIR}/scripts/build_bootloader.sh
+fi
+
+if [ -n "${EMMC_FLASHER}" ] ; then
+	sudo cp /usr/bin/qemu-arm-static $targetdir/usr/bin/
+	sudo cp -v ${DIR}/scripts/emmc-flasher-chroot.sh $targetdir/
+	sudo chroot $targetdir/ /emmc-flasher-chroot.sh
+	sudo rm $targetdir/emmc-flasher-chroot.sh
+	sudo rm $targetdir/usr/bin/qemu-arm-static
 fi
 
 # create SD image

@@ -1,0 +1,13 @@
+diff --git a/include/configs/am335x_evm.h b/include/configs/am335x_evm.h
+index 2cb8978..37aea0a 100644
+--- a/include/configs/am335x_evm.h
++++ b/include/configs/am335x_evm.h
+@@ -90,7 +90,7 @@
+ 	func(DHCP, dhcp, na)
+ 
+ #define CONFIG_BOOTCOMMAND \
+-	"load mmc 0:1 ${loadaddr} uEnv.txt;"	\
++	"if load mmc 0:1 ${loadaddr} uEnv.txt; then echo \"booting from SD card\"; else load mmc 1:1 ${loadaddr} uEnv.txt; echo \"booting from eMMC\"; fi;"	\
+ 	"env import -t ${loadaddr} ${filesize};"	\
+ 	"run uenvcmd;"
+ 

@@ -1,4 +1,0 @@
-load mmc 0:1 ${fdtaddr} am335x-bone-bela.dtb;
-load mmc 0:2 ${loadaddr} /boot/vmlinuz-4.4.62-ti-xenomai-r99;
-setenv bootargs console=${console} root=/dev/mmcblk0p2 ro rootfstype=ext4;
-bootz ${loadaddr} - ${fdtaddr};

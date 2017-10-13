@@ -7,7 +7,9 @@ echo "~~~~ compiling bootloader ~~~~"
 cd ${DIR}/downloads/u-boot
 git checkout v2017.03 -b tmp
 cp -v ${DIR}/boot/bela_uboot_config.patch ./
+cp -v ${DIR}/boot/bela_uboot_bootcmd.patch ./
 git apply bela_uboot_config.patch
+git apply bela_uboot_bootcmd.patch
 make -j${CORES} ARCH=arm CROSS_COMPILE=${CC} distclean
 make -j${CORES} ARCH=arm CROSS_COMPILE=${CC} am335x_evm_defconfig
 make -j${CORES} ARCH=arm CROSS_COMPILE=${CC}

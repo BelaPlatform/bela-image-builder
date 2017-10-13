@@ -9,7 +9,7 @@ echo "creating Bela SD image"
 dd if=/dev/zero of=${DIR}/bela.img bs=1M count=4000
 
 # partition it
-sudo sfdisk ${DIR}/bela.img < ${DIR}/misc/rootfs/opt/Bela/bela.sfdisk
+sudo sfdisk ${DIR}/bela.img < ${DIR}/bela.sfdisk
 
 # mount it
 LOOP=`losetup -f`
@@ -32,6 +32,7 @@ cp ${DIR}/boot/uEnv.txt ${DIR}/boot/uEnv.tmp
 echo "uname_r=`cat ${DIR}/kernel/kernel_version`" >> ${DIR}/boot/uEnv.tmp
 echo "dtb=am335x-bone-bela.dtb" >> ${DIR}/boot/uEnv.tmp
 echo "#dtb=am335x-bone-bela-black-wireless.dtb" >> ${DIR}/boot/uEnv.tmp
+echo "mmcid=0" >> ${DIR}/boot/uEnv.tmp
 sudo cp -v ${DIR}/boot/uEnv.tmp /mnt/bela/boot/uEnv.txt
 rm ${DIR}/boot/uEnv.tmp
 
@@ -41,6 +42,15 @@ sudo cp -v ${DIR}/boot/u-boot.img /mnt/bela/boot/
 sudo cp -v $targetdir/opt/Bela/am335x-bone-bela*.dtb /mnt/bela/boot/
 # copy rootfs
 sudo cp -a ${DIR}/rootfs/* /mnt/bela/root/
+
+# create uEnv.txt for emmc
+cp ${DIR}/boot/uEnv.txt ${DIR}/boot/uEnv.tmp
+echo "uname_r=`cat ${DIR}/kernel/kernel_version`" >> ${DIR}/boot/uEnv.tmp
+echo "dtb=am335x-bone-bela.dtb" >> ${DIR}/boot/uEnv.tmp
+echo "#dtb=am335x-bone-bela-black-wireless.dtb" >> ${DIR}/boot/uEnv.tmp
+echo "mmcid=1" >> ${DIR}/boot/uEnv.tmp
+sudo cp -v ${DIR}/boot/uEnv.tmp /mnt/bela/root/opt/Bela/uEnv-emmc.txt
+rm ${DIR}/boot/uEnv.tmp
 
 # unmount
 sudo umount /mnt/bela/boot
