@@ -23,7 +23,7 @@ mount /dev/mmcblk1p2 /mnt/root
 echo "copying files, this may take a few minutes..."
 
 cp -a /mnt/boot/MLO /mnt/boot/u-boot.img /mnt/boot/*.dtb /mnt/emmc_boot
-cp -a /opt/Bela/uEnv-emmc.txt /mnt/emmc_boot
+cp -a /opt/Bela/uEnv-emmc.txt /mnt/emmc_boot/uEnv.txt
 cp -a /bin/ /boot/ /dev/ /etc/ /home/ /lib/ /opt/ /root/ /sbin/ /srv/ /usr/ /var/ /mnt/root
 mkdir -p /mnt/root/media /mnt/root/mnt /mnt/root/proc /mnt/root/run/ /mnt/root/sys /mnt/root/tmp
 cp -a /opt/Bela/fstab-emmc /mnt/root/etc/fstab
