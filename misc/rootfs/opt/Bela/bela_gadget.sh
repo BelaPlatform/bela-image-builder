@@ -19,7 +19,7 @@ mkdir -p functions/acm.usb0             # serial
 mkdir -p functions/midi.usb0            # MIDI
 
 # make boot partition available as mass storage
-echo /dev/mmcblk0p1 > functions/mass_storage.0/lun.0/file
+echo `cat /opt/Bela/rootfs_dev`p1 > functions/mass_storage.0/lun.0/file
 
 mkdir -p configs/c.1
 echo 500 > configs/c.1/MaxPower

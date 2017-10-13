@@ -3,5 +3,5 @@ label-id: 0x68a0906e
 device: /dev/mmcblk1
 unit: sectors
 
-/dev/mmcblk1p1 : start=        2048, size=      137953, type=b, bootable
+/dev/mmcblk1p1 : start=        2048, size=      137953, type=c, bootable
 /dev/mmcblk1p2 : start=      141312, size=     7329792, type=83

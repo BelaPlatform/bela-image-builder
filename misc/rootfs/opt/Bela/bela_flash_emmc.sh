@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-systemctl disable bela_flash_emmc.service
-
 echo "default-on" > /sys/class/leds/beaglebone\:green\:usr1/trigger
 echo "default-on" > /sys/class/leds/beaglebone\:green\:usr2/trigger
 echo "default-on" > /sys/class/leds/beaglebone\:green\:usr3/trigger
@@ -27,6 +25,8 @@ cp -a /opt/Bela/uEnv-emmc.txt /mnt/emmc_boot/uEnv.txt
 cp -a /bin/ /boot/ /dev/ /etc/ /home/ /lib/ /opt/ /root/ /sbin/ /srv/ /usr/ /var/ /mnt/root
 mkdir -p /mnt/root/media /mnt/root/mnt /mnt/root/proc /mnt/root/run/ /mnt/root/sys /mnt/root/tmp
 cp -a /opt/Bela/fstab-emmc /mnt/root/etc/fstab
+echo "/dev/mmcblk1" > /mnt/root/opt/Bela/rootfs_dev
+rm /mnt/root/etc/systemd/system/default.target.wants/bela_flash_emmc.service
 sync
 
 umount /mnt/emmc_boot
