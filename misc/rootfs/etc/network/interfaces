@@ -21,6 +21,12 @@ iface eth0 inet dhcp
 # WiFi Example
 #allow-hotplug wlan0
 #iface wlan0 inet dhcp
-#wpa-ssid "yourSSID"
-#wpa-psk  "yourPassword"
+#wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+# Uncommend the lines above if you have a network interface. To see the name/number of your
+# interface run
+#   ip a
+# To provide credentials to your network, run the following at the command line:
+#    wpa_passphrase YourNetworkName YourNetworkPassword >>/etc/wpa_supplicant/wpa_supplicant.conf
+# then:
+#     ifdown wlan0; ifup wlan0
 
