@@ -1,0 +1,7 @@
+Linux users should not need any drivers to connect via USB to the BeagleBone Black.
+:)
+
+You may have to manually turn on the USB network interface created by the BBB using 
+# ifconfig interfaceName up 192.168.7.1
+
+
