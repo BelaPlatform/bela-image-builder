@@ -91,6 +91,7 @@ update-alternatives --install /usr/bin/clang clang `which clang-3.9` 100
 
 # install bela
 cd /root/Bela
+make -C resources/bela-cape-btn install
 make nostartup
 make idestartup
 mkdir -p /root/Bela/projects
@@ -153,6 +154,7 @@ echo bela > /etc/hostname
 
 # systemd configuration
 systemctl enable bela_gadget
+systemctl enable bela_button
 systemctl enable serial-getty@ttyGS0.service
 systemctl enable ssh_shutdown
 

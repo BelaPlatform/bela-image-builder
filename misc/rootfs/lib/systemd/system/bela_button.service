@@ -1,0 +1,10 @@
+[Unit]
+Description=Monitor the Bela cape button
+After=networking-online.target
+ 
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/bela-cape-btn --pin 115 --hold /opt/Bela/bela_button_hold.sh --delay 20 --monitor-click 0
+ 
+[Install]
+WantedBy=default.target
