@@ -49,3 +49,4 @@ libssl-dev
 clang-3.9
 checkinstall
 libx11-dev
+distcc
