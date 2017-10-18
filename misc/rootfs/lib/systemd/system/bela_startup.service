@@ -11,4 +11,4 @@ ExecStart=/usr/bin/stdbuf -i0 -e0 -o0 /root/Bela/projects/${PROJECT}/${PROJECT} 
 Type=simple
 
 [Install]
-WantedBy=local-fs.target
+WantedBy=default.target
