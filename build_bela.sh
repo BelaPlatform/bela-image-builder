@@ -17,7 +17,7 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
-DIR=`pwd`
+DIR=$(dirname "$0")
 export DIR
 targetdir=${DIR}/rootfs
 targetdir_pre_chroot_backup=${DIR}/pre_chroot_backup
