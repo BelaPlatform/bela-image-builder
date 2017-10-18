@@ -20,3 +20,6 @@ alias l='ls $LS_OPTIONS -lA'
 
 export SLOTS=/sys/devices/platform/bone_capemgr/slots
 export PINS=/sys/kernel/debug/pinctrl/44e10800.pinmux/pins
+
+export HISTSIZE=1000
+export HISTIGNORE=fg
