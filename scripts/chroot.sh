@@ -141,14 +141,6 @@ make clean
 # clear root password
 passwd -d root
 
-# add bela user
-adduser bela --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password
-echo "bela:a" | chpasswd
-#chown root:root /usr/bin/sudo
-#chmod 4755 /usr/bin/sudo
-chown bela /home/bela
-chown root:root /etc/sudoers.d/bela
-
 # set hostname
 echo bela > /etc/hostname
 
