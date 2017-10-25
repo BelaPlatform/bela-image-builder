@@ -89,6 +89,8 @@ echo "~~~~ Setting-up clang ~~~~"
 update-alternatives --install /usr/bin/clang++ clang++ `which clang++-3.9` 100
 update-alternatives --install /usr/bin/clang clang `which clang-3.9` 100
 
+echo "~~~~ Installing Bela ~~~~"
+dpkg -i /root/Bela/resources/stretch/deb/*deb
 # install bela
 cd /root/Bela
 make -C resources/tools/bela-cape-btn install
