@@ -17,7 +17,8 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
-DIR=$(dirname "$0")
+# Using full path as it is required by `make install` for xenomai-3
+DIR=`pwd`/$(dirname "$0")
 export DIR
 targetdir=${DIR}/rootfs
 targetdir_pre_chroot_backup=${DIR}/pre_chroot_backup
@@ -107,12 +108,8 @@ PATH=$PATH:`dirname $CC`
 CC=${CC}
 export CC PATH
 
-if [ -f ${NO_DOWNLOADS} ]; then
-	# if we are doing downloads, and the kernel is ok then we have the cross compiler selected
-	# so we build xenomai
-	if [ -f ${NO_BUILD_XENOMAI} ] ; then
-		$UNSU ${DIR}/scripts/build_xenomai.sh
-	fi
+if [ -f ${NO_BUILD_XENOMAI} ] ; then
+	$UNSU ${DIR}/scripts/build_xenomai.sh
 fi
 
 # build the rootfs

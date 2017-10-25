@@ -1,5 +1,6 @@
 #!/bin/bash -e
-
+[ -z "$targetdir" ] && { echo "undefined variable: \$targetdir"; exit 1; }
+[ -z "$DIR" ] && { echo "undefined variable: \$DIR"; exit 1; }
 
 sudo cp -v ${DIR}/kernel/*.deb $targetdir/root/
 sudo cp -v ${DIR}/kernel/kernel_version $targetdir/root/

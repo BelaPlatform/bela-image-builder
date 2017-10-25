@@ -1,4 +1,6 @@
 #!/bin/bash -e
+[ -z "$DIR" ] && { echo "undefined variable: \$DIR"; exit 1; }
+[ -z "$targetdir" ] && { echo "undefined variable: \$targetdir"; exit 1; }
 
 cd ${DIR}
 rm -rf bela.img

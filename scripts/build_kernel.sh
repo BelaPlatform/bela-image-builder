@@ -1,5 +1,5 @@
 #!/bin/bash -e
-[ -z "$DIR" ] && DIR=$PWD
+[ -z "$DIR" ] && { echo "undefined variable: \$DIR"; exit 1; }
 [ -z "$FAST_KERNEL" ] && FAST_KERNEL=no
 
 echo "~~~~ compiling bela kernel  ~~~~"

@@ -1,4 +1,5 @@
 #!/bin/bash -e
+[ -z "$DIR" ] && { echo "undefined variable: \$DIR"; exit 1; }
 
 mkdir -p ${DIR}/downloads
 cd ${DIR}/downloads

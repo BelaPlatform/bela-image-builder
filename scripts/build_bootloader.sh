@@ -1,7 +1,7 @@
 #!/bin/bash -x
-[ -z "$DIR" ] && DIR=$PWD
+[ -z "$DIR" ] && { echo "undefined variable: \$DIR"; exit 1; }
 [ -z "$CORES" ] && CORES=$(getconf _NPROCESSORS_ONLN)
-[ -z "$CC" ] && { echo "build_bootloader.sh: you should specify a cross compiler in \$CC" >& 2; exit 1; }
+[ -z "$CC" ] && { echo "build_bootloader.sh: you should specify a cross compiler in \$CC" >& 1; exit 1; }
 
 echo "~~~~ compiling bootloader ~~~~"
 cd ${DIR}/downloads/u-boot
