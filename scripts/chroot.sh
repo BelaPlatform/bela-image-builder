@@ -31,6 +31,8 @@ echo "~~~~ Install .deb files ~~~~"
 cd /opt/deb
 dpkg -i *deb
 rm -rf /opt/deb
+dpkg -i /root/Bela/resources/stretch/deb/*deb
+ldconfig
 
 echo "~~~~ installing bela kernel ~~~~"
 # install the kernel
@@ -83,14 +85,12 @@ make seasocks seasocks_so
 cd /root
 rm -rf /opt/seasocks/build
 ldconfig
-
 echo "~~~~ Setting-up clang ~~~~"
 # Make 3.9 default
 update-alternatives --install /usr/bin/clang++ clang++ `which clang++-3.9` 100
 update-alternatives --install /usr/bin/clang clang `which clang-3.9` 100
 
 echo "~~~~ Installing Bela ~~~~"
-dpkg -i /root/Bela/resources/stretch/deb/*deb
 # install bela
 cd /root/Bela
 make -C resources/tools/bela-cape-btn install
@@ -100,6 +100,7 @@ mkdir -p /root/Bela/projects
 cp -rv /root/Bela/IDE/templates/basic /root/Bela/projects/
 make -j${CORES} all PROJECT=basic AT=
 make -j${CORES} lib
+ldconfig
 
 cp -v /root/Bela/resources/stretch/dtb/BELA-00A0.dtbo /lib/firmware/
 echo "~~~~ building doxygen docs ~~~~"
