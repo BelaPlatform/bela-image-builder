@@ -19,10 +19,10 @@ LOOP=`echo $LOOP | sed "s/\/dev\///"`
 #sudo losetup /dev/$LOOP
 # -s makes sure the operation is applied before continuing
 sudo kpartx -s -av ${DIR}/bela.img
-sudo mkfs.vfat /dev/mapper/loop0p1
-sudo dosfslabel /dev/mapper/loop0p1 BELABOOT
-sudo mkfs.ext4 /dev/mapper/loop0p2
-sudo e2label /dev/mapper/loop0p2 BELAROOTFS
+sudo mkfs.vfat /dev/mapper/${LOOP}p1
+sudo dosfslabel /dev/mapper/${LOOP}p1 BELABOOT
+sudo mkfs.ext4 /dev/mapper/${LOOP}p2
+sudo e2label /dev/mapper/${LOOP}p2 BELAROOTFS
 
 mkdir -p /mnt/bela/boot
 mkdir -p /mnt/bela/root
