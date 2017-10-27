@@ -7,7 +7,7 @@ TimeoutStartSec=0
 Type=oneshot
 RemainAfterExit=yes
 ExecStart=/bin/true
-ExecStop=/usr/bin/killall sshd; /usr/bin/killall dhclient
+ExecStop=/usr/bin/killall sshd; /usr/bin/killall dhclient; /usr/bin/make -C /root/Bela stop
 
 [Install]
 WantedBy=multi-user.target
