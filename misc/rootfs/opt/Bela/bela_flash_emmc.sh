@@ -26,7 +26,7 @@ cp -a /bin/ /boot/ /dev/ /etc/ /home/ /lib/ /opt/ /root/ /sbin/ /srv/ /usr/ /var
 mkdir -p /mnt/root/media /mnt/root/mnt /mnt/root/proc /mnt/root/run/ /mnt/root/sys /mnt/root/tmp
 cp -a /opt/Bela/fstab-emmc /mnt/root/etc/fstab
 echo "/dev/mmcblk1" > /mnt/root/opt/Bela/rootfs_dev
-rm /mnt/root/etc/systemd/system/default.target.wants/bela_flash_emmc.service
+rm /mnt/root/etc/systemd/system/default.target.wants/bela_flash_emmc.service || true
 sync
 
 umount /mnt/emmc_boot

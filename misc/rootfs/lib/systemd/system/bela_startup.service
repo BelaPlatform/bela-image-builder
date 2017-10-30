@@ -7,8 +7,9 @@ Before=shutdown.target
 
 [Service]
 EnvironmentFile=/opt/Bela/startup_env
-ExecStart=/usr/bin/stdbuf -i0 -e0 -o0 /root/Bela/projects/${PROJECT}/${PROJECT} "$ARGS"
+ExecStart=/usr/bin/stdbuf -i0 -e0 -o0 /usr/bin/make -C /root/Bela PROJECT=${PROJECT} CL="${ARGS}" run
 Type=simple
+Restart=on-failure
 
 [Install]
 WantedBy=default.target
