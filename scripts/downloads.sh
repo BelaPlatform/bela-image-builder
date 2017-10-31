@@ -70,11 +70,6 @@ git_clone_address="https://github.com/BelaPlatform/dtb-rebuilder.git"
 git_branch="4.4-ti"
 update_git
 
-git_project_name="boot-scripts"
-git_clone_address="https://github.com/RobertCNelson/boot-scripts.git"
-git_branch="master"
-update_git
-
 git_project_name="seasocks"
 git_clone_address="https://github.com/mattgodbolt/seasocks.git"
 git_branch="master"

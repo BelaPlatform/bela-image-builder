@@ -14,7 +14,6 @@ sudo cp -r ${DIR}/downloads/bb.org-overlays $targetdir/opt/
 sudo cp -r ${DIR}/downloads/bb.org-dtc $targetdir/opt/
 sudo cp -r ${DIR}/downloads/dtb-rebuilder $targetdir/opt/
 sudo cp -r ${DIR}/downloads/seasocks $targetdir/opt/
-sudo cp -r ${DIR}/downloads/boot-scripts $targetdir/opt/bb.org-scripts
 sudo cp -r ${DIR}/downloads/xenomai-3 $targetdir/opt/
 sudo cp -r ${DIR}/downloads/rtdm_pruss_irq $targetdir/opt/
 sudo cp -r ${DIR}/downloads/deb $targetdir/opt/
@@ -33,7 +32,7 @@ sudo cp -r $KERNEL_DIR_HOST/$MISSING_DIR/* $DESTDIR/$MISSING_DIR
 
 # install xenomai to rootfs
 echo "~~~~ installing xenomai  ~~~~"
-sudo make -C ${DIR}/downloads/xenomai-3 install DESTDIR=$targetdir --no-print-directory
+sudo make -C ${DIR}/downloads/xenomai-3-build install DESTDIR=$targetdir --no-print-directory
 
 sudo cp -rv ${DIR}/misc/rootfs/* $targetdir/
 sudo printf "Built with bela-image-builder `git -C ${DIR} branch | grep '\*' | sed 's/\*\s//g'`@`git -C ${DIR} rev-parse HEAD`\non `date`\n\n" >> ${DIR}/rootfs/etc/motd
