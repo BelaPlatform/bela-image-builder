@@ -5,10 +5,11 @@ CORES=$(getconf _NPROCESSORS_ONLN)
 echo "~~~~ Updating the packages database ~~~~"
 apt-get update
 
-#uncomment till set+x to debug ldconfig
-#set +e
-#set -x 
-#grep xenomai /etc/ld.so.cache
+echo "~~~~ Installing node ~~~~"
+# install node
+/bin/bash /opt/Bela/setup_7.x
+apt-get install -y nodejs
+
 echo "Finish installing xenomai"
 libtool --finish /usr/xenomai/lib
 # cleanup some un-parseable documentation. man entries are in doc/asciidoc
@@ -16,13 +17,9 @@ rm -rf /opt/xenomai-3/doc/prebuilt
 rm -rf /opt/xenomai-3/doc/doxygen
 # and the huge git repo
 rm -rf /opt/xenomai-3/.git
-#grep xenomai /etc/ld.so.cache
 echo "/usr/xenomai/lib" > /etc/ld.so.conf.d/xenomai.conf
 echo "/root/Bela/lib" > /etc/ld.so.conf.d/bela.conf
 ldconfig
-#grep xenomai /etc/ld.so.cache
-#set -e
-#set +x
 
 echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen
 locale-gen
@@ -110,10 +107,6 @@ ldconfig
 cp -v /root/Bela/resources/stretch/dtb/BELA-00A0.dtbo /lib/firmware/
 echo "~~~~ building doxygen docs ~~~~"
 doxygen > /dev/null 2>&1
-
-# install node
-/bin/bash /opt/Bela/setup_7.x
-apt-get install -y nodejs
 
 cd "/opt/prudebug"
 echo "~~~~ Building prudebug ~~~~"
