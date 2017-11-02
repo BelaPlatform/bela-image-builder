@@ -5,7 +5,6 @@ After=networking-online.target
 [Service]
 Type=simple
 ExecStart=/usr/bin/stdbuf -oL -eL /usr/local/bin/bela-cape-btn --pin 115 --hold /opt/Bela/bela_button_hold.sh --delay 20 --monitor-click 0
-KillMode=process
 Environment=HOME=/root
  
 [Install]
