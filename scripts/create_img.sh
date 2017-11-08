@@ -7,7 +7,7 @@ rm -rf bela.img
 
 echo "creating Bela SD image"
 
-# create empty 4gb disk image
+echo Create empty 4gb disk image
 dd if=/dev/zero of=${DIR}/bela.img bs=100 count=38671483
 
 # partition it
@@ -55,7 +55,8 @@ sync
 sudo cp -a ${DIR}/rootfs/* /mnt/bela/root/
 # seal off the motd with current tag and commit hash
 APPEND_TO_MOTD="sudo tee -a /mnt/bela/root/etc/motd"
-printf "Bela image, `git -C ${DIR} describe --tags --dirty=++`, `date "+%e %B %Y"`\n\n" | ${APPEND_TO_MOTD}
+DESCRIPTION=`git -C ${DIR} describe --tags --dirty`
+printf "Bela image, $DESCRIPTION, `date "+%e %B %Y"`\n\n" | ${APPEND_TO_MOTD}
 printf "More info at https://github.com/BelaPlatform/bela-image-builder/releases\n\n" | ${APPEND_TO_MOTD}
 printf "Built with bela-image-builder `git -C ${DIR} branch | grep '\*' | sed 's/\*\s//g'`@`git -C ${DIR} rev-parse HEAD`\non `date`\n\n" | ${APPEND_TO_MOTD}
 
@@ -67,6 +68,7 @@ echo "#dtb=am335x-bone-bela-black-wireless.dtb" >> ${DIR}/boot/uEnv.tmp
 echo "mmcid=1" >> ${DIR}/boot/uEnv.tmp
 sudo cp -v ${DIR}/boot/uEnv.tmp /mnt/bela/root/opt/Bela/uEnv-emmc.txt
 rm ${DIR}/boot/uEnv.tmp
+printf "BELA_IMAGE_VERSION=\"$DESCRIPTION\"\n" | sudo tee /mnt/bela/boot/bela.version
 
 # unmount
 sudo umount /mnt/bela/boot
@@ -76,3 +78,7 @@ sudo losetup -d /dev/${LOOP}
 sudo chown $SUDO_USER ${DIR}/bela.img
 
 echo "bela.img created"
+echo
+GIT_TAG=`git -C ${DIR} describe --tags --dirty`
+# Are we on a tag? Try to list tags with the names above, if we get 0 lines, then we are not.
+[ "`git tag -l \"$GIT_TAG\" | wc -l`" -eq 0 ] && echo "You do not seem to be on a git tag or your working tree is dirty. Are you sure you want to use this image for release?" >&2
