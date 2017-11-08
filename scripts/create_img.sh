@@ -53,6 +53,11 @@ sync
 
 # copy rootfs
 sudo cp -a ${DIR}/rootfs/* /mnt/bela/root/
+# seal off the motd with current tag and commit hash
+APPEND_TO_MOTD="sudo tee -a /mnt/bela/root/etc/motd"
+printf "Bela image, `git -C ${DIR} describe --tags --dirty=++`, `date "+%e %B %Y"`\n\n" | ${APPEND_TO_MOTD}
+printf "More info at https://github.com/BelaPlatform/bela-image-builder/releases\n\n" | ${APPEND_TO_MOTD}
+printf "Built with bela-image-builder `git -C ${DIR} branch | grep '\*' | sed 's/\*\s//g'`@`git -C ${DIR} rev-parse HEAD`\non `date`\n\n" | ${APPEND_TO_MOTD}
 
 # create uEnv.txt for emmc
 cp ${DIR}/boot/uEnv.txt ${DIR}/boot/uEnv.tmp

@@ -35,5 +35,4 @@ echo "~~~~ installing xenomai  ~~~~"
 sudo make -C ${DIR}/downloads/xenomai-3-build install DESTDIR=$targetdir --no-print-directory
 
 sudo cp -rv ${DIR}/misc/rootfs/* $targetdir/
-sudo printf "Built with bela-image-builder `git -C ${DIR} branch | grep '\*' | sed 's/\*\s//g'`@`git -C ${DIR} rev-parse HEAD`\non `date`\n\n" >> ${DIR}/rootfs/etc/motd
 
