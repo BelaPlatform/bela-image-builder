@@ -39,14 +39,17 @@ elif [ -f $DIR/boot/uboot/SOC.sh ] ; then
 	echo "found SOC.sh in $DIR/boot/uboot"
 	cat $DIR/boot/uboot/SOC.sh
 	. $DIR/boot/uboot/SOC.sh
+else
+	echo "Could not find SOC.sh" > 2
+	exit 1
 fi
 
-if [ $board != "am335x_evm" ] ; then
+if [ "$board" != "am335x_evm" ] ; then
 	echo "bad board $board"
 	exit
 fi
 
-if [ $bootloader_location = "fatfs_boot" ] ; then
+if [ "$bootloader_location" = "fatfs_boot" ] ; then
 	echo "fatfs_boot"
 	mkdir -p /tmp/boot
 	cp -a /mnt/emmc/* /tmp/boot/
