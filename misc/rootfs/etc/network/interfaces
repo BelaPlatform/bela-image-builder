@@ -22,7 +22,7 @@ iface eth0 inet dhcp
 allow-hotplug wlan0
 iface wlan0 inet dhcp
 wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-# The lines above should if you have a wifi interface called wlan0.
+# The lines above should work if you have a wifi interface called wlan0.
 # To see the actual name of your interface, run
 #   ip a
 # and identify it among the ones listed then replace `wlan0` above with the name of your interface
