@@ -9,6 +9,7 @@ sudo cp -r ${DIR}/downloads/Bela $targetdir/root/
 sudo mkdir -p $targetdir/opt/Bela
 sudo cp -v ${DIR}/downloads/setup_7.x $targetdir/opt/Bela/
 sudo cp -r ${DIR}/downloads/prudebug $targetdir/opt/
+sudo cp -r ${DIR}/downloads/checkinstall $targetdir/opt/
 sudo cp -r ${DIR}/downloads/am335x_pru_package $targetdir/opt/
 sudo cp -r ${DIR}/downloads/bb.org-overlays $targetdir/opt/
 sudo cp -r ${DIR}/downloads/bb.org-dtc $targetdir/opt/

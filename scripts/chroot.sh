@@ -113,6 +113,12 @@ echo "~~~~ Building prudebug ~~~~"
 make -j${CORES}
 cp -v ./prudebug /usr/bin/
 
+cd "/opt/checkinstall"
+echo "~~~~ Building checkinstall ~~~~"
+make
+# only install the patched library, not the whole packages
+cp installwatch/instalwatch.so /usr/lib/checkinstall/
+
 cd /opt/bb.org-dtc
 echo "~~~~ Building bb.org-dtc ~~~~"
 make clean
