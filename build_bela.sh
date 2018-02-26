@@ -2,7 +2,7 @@
 
 # this script downloads, builds and compiles an image (including kernel, bootloader and rootfs) for Bela
 
-DEPENDENCIES="debootstrap qemu-arm-static autoreconf libtool arm-linux-gnueabihf-ranlib kpartx setuidgid wget"
+DEPENDENCIES="debootstrap qemu-arm-static autoreconf libtool arm-linux-gnueabihf-ranlib kpartx setuidgid wget bison flex"
 
 for a in $DEPENDENCIES; do
 	which $a > /dev/null ||\
