@@ -94,4 +94,5 @@ mkdir -p deb && cd deb
 
 # get SuperCollider. TODO: track the most recent release
 wget "https://github.com/giuliomoro/supercollider/releases/download/3.9dev-Bela-build_20171011/supercollider-bela-xenomai-3_3.9dev-build_20171011_armhf.deb"
+wget "https://github.com/giuliomoro/supercollider/releases/download/3.9dev-Bela-build_20171011/sc3-plugins_20180226-1_armhf.deb"
 
