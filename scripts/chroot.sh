@@ -115,9 +115,12 @@ cp -v ./prudebug /usr/bin/
 
 cd "/opt/checkinstall"
 echo "~~~~ Building checkinstall ~~~~"
+# checkinstall is already installed by deboostrap, but the
+# package that ships with Stretch is buggy. We replace the
+# library that comes with it with a patched one that we
+# compile from source
 make
-# only install the patched library, not the whole packages
-cp installwatch/instalwatch.so /usr/lib/checkinstall/
+cp installwatch/installwatch.so /usr/lib/checkinstall/
 
 cd /opt/bb.org-dtc
 echo "~~~~ Building bb.org-dtc ~~~~"
