@@ -1,5 +1,6 @@
-#!/bin/bash -e
- 
+#!/bin/bash
+set -e
+
 cd /sys/kernel/config/usb_gadget/
 mkdir g && cd g
  
