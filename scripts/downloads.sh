@@ -50,8 +50,8 @@ git_clone_address="https://github.com/giuliomoro/prudebug.git"
 git_branch="master"
 update_git
 
-git_project_name="u-boot"
-git_clone_address="https://github.com/u-boot/u-boot"
+git_project_name="Bootloader-Builder"
+git_clone_address="https://github.com/giuliomoro/Bootloader-Builder.git"
 git_branch="master"
 update_git
 
