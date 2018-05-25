@@ -2,10 +2,5 @@ uenvcmd=load mmc ${mmcid}:1 ${fdtaddr} ${dtb};load mmc ${mmcid}:2 ${loadaddr} /b
 
 console=ttyS0,115200n8
 
-mmcid=0
-enable_uboot_overlays=1
-disable_uboot_overlay_video=1
-disable_uboot_overlay_audio=1
-
-uboot_overlay_addr0=/lib/firmware/BB-BELA-B2.dtbo
 dtb=am335x-bone-bela.dtb
+#dtb=am335x-bone-bela-black-wireless.dtb
