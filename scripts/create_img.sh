@@ -29,14 +29,12 @@ mkdir -p /mnt/bela/root
 sudo mount /dev/mapper/${LOOP}p1 /mnt/bela/boot
 sudo mount /dev/mapper/${LOOP}p2 /mnt/bela/root
 
-# copy bootloader and dtb
+# copy bootloader 
 # To boot properly MLO and u-boot.img have to be the first things copied onto the partition.
 # We enforce this by `sync`ing to disk after every copy
 sudo cp -v ${DIR}/boot/MLO /mnt/bela/boot/
 sync
 sudo cp -v ${DIR}/boot/u-boot.img /mnt/bela/boot/
-sync
-sudo cp -v $targetdir/opt/Bela/am335x-bone-bela*.dtb /mnt/bela/boot/
 sync
 # copying static extras to boot partition
 sudo cp -rv ${DIR}/misc/boot/* /mnt/bela/boot/
