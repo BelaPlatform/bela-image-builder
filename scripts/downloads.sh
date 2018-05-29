@@ -56,7 +56,7 @@ git_branch="master"
 update_git
 
 git_project_name="bb.org-overlays"
-git_clone_address="https://github.com/beagleboard/bb.org-overlays.git"
+git_clone_address="https://github.com/LBDonovan/bb.org-overlays.git"
 git_branch="master"
 update_git
 
