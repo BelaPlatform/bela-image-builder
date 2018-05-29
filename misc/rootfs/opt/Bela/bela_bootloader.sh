@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash
 #
 # Copyright (c) 2014-2017 Robert Nelson <robertcnelson@gmail.com>
 # Modified 2017 Liam Donovan <liam@bela.io>
@@ -27,6 +27,8 @@ DEVICE=/dev/mmcblk1
 mkdir -p $DIR
 mount ${DEVICE}p1 $DIR
 
+trap 'umount $DIR' ERR
+
 if [ -f $DIR/SOC.sh ] ; then
 	echo "found SOC.sh in $DIR"
 	cat $DIR/SOC.sh
@@ -39,14 +41,13 @@ elif [ -f $DIR/boot/uboot/SOC.sh ] ; then
 	echo "found SOC.sh in $DIR/boot/uboot"
 	cat $DIR/boot/uboot/SOC.sh
 	. $DIR/boot/uboot/SOC.sh
+elif [ -f $DIR/MLO ] ; then
+	echo "emmc contains Bela image"
+	bootloader_location="fatfs_boot"
 else
-	echo "Could not find SOC.sh" > 2
+	echo "Could not find SOC.sh"
+	umount $DIR
 	exit 1
-fi
-
-if [ "$board" != "am335x_evm" ] ; then
-	echo "bad board $board"
-	exit
 fi
 
 if [ "$bootloader_location" = "fatfs_boot" ] ; then
@@ -64,23 +65,33 @@ if [ "$bootloader_location" = "fatfs_boot" ] ; then
 	exit
 fi
 
+if [ "$board" != "am335x_evm" ] ; then
+	echo "bad board $board"
+	umount $DIR
+	exit
+fi
+
 if [ "x${dd_spl_uboot_seek}" = "x" ] ; then
 	echo "dd_spl_uboot_seek not found in ${DRIVE}/SOC.sh halting"
+	umount $DIR
 	exit
 fi
 
 if [ "x${dd_spl_uboot_bs}" = "x" ] ; then
 	echo "dd_spl_uboot_bs not found in SOC.sh halting"
+	umount $DIR
 	exit
 fi
 
 if [ "x${dd_uboot_seek}" = "x" ] ; then
 	echo "dd_uboot_seek not found in SOC.sh halting"
+	umount $DIR
 	exit
 fi
 
 if [ "x${dd_uboot_bs}" = "x" ] ; then
 	echo "dd_uboot_bs not found in SOC.sh halting"
+	umount $DIR
 	exit
 fi
 
