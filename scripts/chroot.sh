@@ -142,10 +142,8 @@ make clean
 cd /opt/dtb-rebuilder
 echo "~~~~ Building Bela dtb ~~~~"
 make clean
-make src/arm/am335x-bone-bela.dtb
-cp -v src/arm/am335x-bone-bela.dtb /opt/Bela/
-make src/arm/am335x-bone-bela-black-wireless.dtb
-cp -v src/arm/am335x-bone-bela-black-wireless.dtb /opt/Bela/
+make
+make install
 make clean
 
 # clear root password
