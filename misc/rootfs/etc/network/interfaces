@@ -1,9 +1,16 @@
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
 
-# USB RNDIS gadget 
+# USB RNDIS gadget (Windows / Linux compatible)
 auto usb0
 iface usb0 inet static
+    address 192.168.7.2
+    netmask 255.255.255.0
+    network 192.168.7.0
+
+# USB ECM gadget (macOS / Linux compatible)
+auto usb1
+iface usb1 inet static
     address 192.168.7.2
     netmask 255.255.255.0
     network 192.168.7.0
