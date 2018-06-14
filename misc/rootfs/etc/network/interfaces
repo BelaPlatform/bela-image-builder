@@ -4,9 +4,9 @@
 # USB RNDIS gadget (Windows / Linux compatible)
 auto usb0
 iface usb0 inet static
-    address 192.168.7.2
+    address 192.168.6.2
     netmask 255.255.255.0
-    network 192.168.7.0
+    network 192.168.6.0
 
 # USB ECM gadget (macOS / Linux compatible)
 auto usb1
