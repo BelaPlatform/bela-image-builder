@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+# Stop the Bela program if currently running. Makes for a faster copy.
+make -C /root/Bela stop || true
+
 echo "default-on" > /sys/class/leds/beaglebone\:green\:usr1/trigger
 echo "default-on" > /sys/class/leds/beaglebone\:green\:usr2/trigger
 echo "default-on" > /sys/class/leds/beaglebone\:green\:usr3/trigger
