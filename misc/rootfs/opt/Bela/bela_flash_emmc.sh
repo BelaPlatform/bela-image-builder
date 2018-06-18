@@ -1,11 +1,35 @@
-#!/bin/sh -e
+#!/bin/bash
+
+set -ex
+
+USR1=/sys/class/leds/beaglebone\:green\:usr1/trigger
+USR2=/sys/class/leds/beaglebone\:green\:usr2/trigger
+USR3=/sys/class/leds/beaglebone\:green\:usr3/trigger
+SUCCESS=0
+final_check()
+{
+	if [ $SUCCESS -eq 0 ]
+	then
+		while sleep 0.5
+		do
+			echo "default-on" > $USR1
+			echo "default-on" > $USR2
+			echo "default-on" > $USR3
+			sleep 0.5
+			echo "none" > $USR1
+			echo "none" > $USR2
+			echo "none" > $USR3
+		done
+		fi
+}
+trap final_check EXIT
 
 # Stop the Bela program if currently running. Makes for a faster copy.
-make -C /root/Bela stop || true
+make --no-print-directory -C /root/Bela stop || true
 
-echo "default-on" > /sys/class/leds/beaglebone\:green\:usr1/trigger
-echo "default-on" > /sys/class/leds/beaglebone\:green\:usr2/trigger
-echo "default-on" > /sys/class/leds/beaglebone\:green\:usr3/trigger
+echo "default-on" > $USR1
+echo "default-on" > $USR2
+echo "default-on" > $USR3
 
 sfdisk /dev/mmcblk1 < /opt/Bela/bela-emmc.sfdisk
 
@@ -41,6 +65,7 @@ umount /mnt/root
 
 echo "Done!"
 
-echo "mmc0" > /sys/class/leds/beaglebone\:green\:usr1/trigger
-echo "none" > /sys/class/leds/beaglebone\:green\:usr2/trigger
-echo "mmc1" > /sys/class/leds/beaglebone\:green\:usr3/trigger
+echo "mmc0" > $USR1
+echo "none" > $USR2
+echo "mmc1" > $USR3
+SUCCESS=1
