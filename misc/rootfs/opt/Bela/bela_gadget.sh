@@ -52,6 +52,9 @@ mkdir -p functions/rndis.usb0/os_desc/interface.rndis
 echo RNDIS > functions/rndis.usb0/os_desc/interface.rndis/compatible_id
 echo 5162001 > functions/rndis.usb0/os_desc/interface.rndis/sub_compatible_id
 
+echo be:1a:be:1a:ff:ff > functions/rndis.usb0/dev_addr
+echo be:1a:be:1a:de:ed > functions/ecm.usb0/dev_addr
+
 mkdir -p configs/c.1
 echo 500 > configs/c.1/MaxPower
 ln -s functions/rndis.usb0 configs/c.1/ # this needs to be loaded first in order to work on Windows
