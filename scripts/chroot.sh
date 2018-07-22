@@ -93,18 +93,20 @@ update-alternatives --install /usr/bin/clang++ clang++ `which clang++-3.9` 100
 update-alternatives --install /usr/bin/clang clang `which clang-3.9` 100
 
 echo "~~~~ Installing Bela ~~~~"
-# install bela
 cd /root/Bela
-make -C resources/tools/bela-cape-btn install
+for DIR in resources/tools/*
+	do make -C "$DIR" install
+done
+
 make nostartup
 make idestartup
+
 mkdir -p /root/Bela/projects
 cp -rv /root/Bela/IDE/templates/basic /root/Bela/projects/
 make -j${CORES} all PROJECT=basic AT=
 make -j${CORES} lib
 ldconfig
 
-cp -v /root/Bela/resources/stretch/dtb/BELA-00A0.dtbo /lib/firmware/
 echo "~~~~ building doxygen docs ~~~~"
 doxygen > /dev/null 2>&1
 

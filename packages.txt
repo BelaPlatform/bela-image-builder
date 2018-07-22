@@ -53,3 +53,4 @@ distcc
 glibc-doc
 libfftw3-dev
 hostapd
+strace
