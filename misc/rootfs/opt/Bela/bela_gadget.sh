@@ -48,6 +48,12 @@ echo 1 > os_desc/use
 echo 0xbc > os_desc/b_vendor_code
 echo MSFT100 > os_desc/qw_sign
 
+/opt/Bela/bela_mac.sh || true
+cat /etc/cpsw_2_mac > functions/rndis.usb0/host_addr || true
+cat /etc/cpsw_1_mac > functions/rndis.usb0/dev_addr || true
+cat /etc/cpsw_4_mac > functions/ecm.usb0/host_addr || true
+cat /etc/cpsw_5_mac > functions/ecm.usb0/dev_addr || true
+
 mkdir -p functions/rndis.usb0/os_desc/interface.rndis
 echo RNDIS > functions/rndis.usb0/os_desc/interface.rndis/compatible_id
 echo 5162001 > functions/rndis.usb0/os_desc/interface.rndis/sub_compatible_id

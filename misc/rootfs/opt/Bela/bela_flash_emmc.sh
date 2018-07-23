@@ -58,6 +58,7 @@ mkdir -p /mnt/root/media /mnt/root/mnt /mnt/root/proc /mnt/root/run/ /mnt/root/s
 cp -a /opt/Bela/fstab-emmc /mnt/root/etc/fstab
 echo "/dev/mmcblk1" > /mnt/root/opt/Bela/rootfs_dev
 rm /mnt/root/etc/systemd/system/default.target.wants/bela_flash_emmc.service || true
+rm /mnt/root/etc/cpsw* || true # reset mac address
 sync
 
 umount /mnt/emmc_boot
