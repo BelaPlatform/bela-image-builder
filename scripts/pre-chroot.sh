@@ -7,7 +7,7 @@ sudo cp -v ${DIR}/kernel/kernel_version $targetdir/root/
 sudo cp -r ${DIR}/downloads/Bela $targetdir/root/
 
 sudo mkdir -p $targetdir/opt/Bela
-sudo cp -v ${DIR}/downloads/setup_7.x $targetdir/opt/Bela/
+sudo cp -v ${DIR}/downloads/setup_8.x $targetdir/opt/Bela/
 sudo cp -r ${DIR}/downloads/prudebug $targetdir/opt/
 sudo cp -r ${DIR}/downloads/checkinstall $targetdir/opt/
 sudo cp -r ${DIR}/downloads/am335x_pru_package $targetdir/opt/
@@ -18,6 +18,7 @@ sudo cp -r ${DIR}/downloads/seasocks $targetdir/opt/
 sudo cp -r ${DIR}/downloads/xenomai-3 $targetdir/opt/
 sudo cp -r ${DIR}/downloads/rtdm_pruss_irq $targetdir/opt/
 sudo cp -r ${DIR}/downloads/deb $targetdir/opt/
+sudo cp -r ${DIR}/downloads/hvcc $targetdir/opt/
 
 # get some missing folders from the kernel
 KERNEL_DIR_HOST=${DIR}/downloads/ti-linux-kernel-dev/KERNEL

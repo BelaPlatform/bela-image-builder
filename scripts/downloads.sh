@@ -32,7 +32,7 @@ update_git
 
 git_project_name="xenomai-3"
 git_clone_address="git://git.xenomai.org/xenomai-3.git"
-git_branch="stable-3.0.x"
+git_branch="stable/v3.0.x"
 update_git
 
 git_project_name="Bela"
@@ -85,8 +85,13 @@ git_clone_address="https://github.com/giuliomoro/checkinstall"
 git_branch="master"
 update_git
 
-if [ ! -f "setup_7.x" ] ; then
-	wget https://deb.nodesource.com/setup_7.x
+git_project_name="hvcc"
+git_clone_address="https://github.com/enzienaudio/hvcc"
+git_branch="master"
+update_git
+
+if [ ! -f "setup_8.x" ] ; then
+	wget https://deb.nodesource.com/setup_8.x
 fi
 
 rm -rf deb

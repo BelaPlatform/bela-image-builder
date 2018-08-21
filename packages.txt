@@ -55,3 +55,5 @@ libfftw3-dev
 hostapd
 strace
 bc
+python-pip
+python-setuptools

@@ -5,9 +5,14 @@ CORES=$(getconf _NPROCESSORS_ONLN)
 echo "~~~~ Updating the packages database ~~~~"
 apt-get update
 
+echo "~~~~ Installing python packages ~~~~"
+pip install wheel
+pip install enum
+pip install Jinja2
+
 echo "~~~~ Installing node ~~~~"
 # install node
-/bin/bash /opt/Bela/setup_7.x
+/bin/bash /opt/Bela/setup_8.x
 apt-get install -y nodejs
 
 echo "Finish installing xenomai"
