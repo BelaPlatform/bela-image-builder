@@ -35,10 +35,9 @@ export LC_ALL="en_GB.UTF-8"
 
 
 echo "~~~~ Install .deb files ~~~~"
-cd /opt/deb
-dpkg -i *deb
+ls /opt/deb/*deb &> /dev/null && dpkg -i /opt/deb/*deb
 rm -rf /opt/deb
-dpkg -i /root/Bela/resources/stretch/deb/*deb
+ls /root/Bela/resources/stretch/deb/*deb &> /dev/null && dpkg -i /root/Bela/resources/stretch/deb/*deb
 ldconfig
 
 echo "~~~~ installing bela kernel ~~~~"
