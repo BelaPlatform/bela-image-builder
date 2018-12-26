@@ -86,8 +86,8 @@ git_branch="master"
 update_git
 
 git_project_name="hvcc"
-git_clone_address="https://github.com/enzienaudio/hvcc"
-git_branch="master"
+git_clone_address="https://github.com/giuliomoro/hvcc"
+git_branch="master-bela"
 update_git
 
 if [ ! -f "setup_8.x" ] ; then
