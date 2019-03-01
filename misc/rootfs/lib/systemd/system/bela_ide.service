@@ -1,6 +1,6 @@
 [Unit]
 Description=Bela IDE Launcher
-After=networking-online.target
+After=network-online.target
 
 [Service]
 ExecStart=/usr/bin/node /root/Bela/IDE/index.js
