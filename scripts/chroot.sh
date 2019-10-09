@@ -98,8 +98,8 @@ update-alternatives --install /usr/bin/clang clang `which clang-3.9` 100
 
 echo "~~~~ Installing Bela ~~~~"
 cd /root/Bela
-for DIR in resources/tools/*
-	do make -C "$DIR" install
+for DIR in resources/tools/*; do
+	[ -d "$DIR" ] && { make -C "$DIR" install || exit 1; }
 done
 
 make nostartup
