@@ -57,4 +57,3 @@ strace
 bc
 python-pip
 python-setuptools
-libmicrohttpd-dev
