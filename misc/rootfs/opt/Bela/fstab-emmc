@@ -1,2 +1,0 @@
-/dev/mmcblk1p2 / ext4 defaults 0 1
-/dev/mmcblk1p1 /mnt/boot vfat defaults 0 2
