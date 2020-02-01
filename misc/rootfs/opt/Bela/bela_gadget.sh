@@ -21,7 +21,8 @@ mkdir -p functions/acm.usb0             # serial
 mkdir -p functions/midi.usb0            # MIDI
 
 # make boot partition available as mass storage
-echo `cat /opt/Bela/rootfs_dev`p1 > functions/mass_storage.0/lun.0/file
+THIS_DEVICE=`mount | grep -o ".* on / " | cut -d" " -f 1 | sed "s/p2\>//"`
+echo ${THIS_DEVICE}p1 > functions/mass_storage.0/lun.0/file
 
 # add OS specific device descriptors to force Windows to load RNDIS drivers
 # =============================================================================
