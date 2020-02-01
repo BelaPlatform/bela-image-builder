@@ -50,13 +50,6 @@ rm ${DIR}/boot/uEnv.tmp
 # copy rootfs
 sudo cp -a ${DIR}/rootfs/* /mnt/bela/root/
 
-# create uEnv.txt for emmc
-cp ${DIR}/boot/uEnv.txt ${DIR}/boot/uEnv.tmp
-echo "uname_r=`cat ${DIR}/kernel/kernel_version`" >> ${DIR}/boot/uEnv.tmp
-echo "mmcid=1" >> ${DIR}/boot/uEnv.tmp
-sudo cp -v ${DIR}/boot/uEnv.tmp /mnt/bela/root/opt/Bela/uEnv-emmc.txt
-rm ${DIR}/boot/uEnv.tmp
-
 printf "BELA_IMAGE_VERSION=\"$DESCRIPTION\"\n" | sudo tee /mnt/bela/boot/bela.version
 
 # seal off the motd with current tag and commit hash
