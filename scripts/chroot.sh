@@ -63,9 +63,11 @@ cp /usr/src/linux-headers-${BELA_KERNEL_VERSION}/include/generated/uapi/linux/ve
 #  rebuild kernel scripts and tools
 cd "/lib/modules/${BELA_KERNEL_VERSION}/build"
 echo "~~~~ Building kernel headers ~~~~"
+cp -r /root/kernel-tools/* arch/arm/tools/
 make headers_check -j${CORES}
 make headers_install -j${CORES}
 make scripts -j${CORES}
+rm -rf /root/kernel-tools
 
 # install misc utilities
 cd "/opt/am335x_pru_package/"
