@@ -45,20 +45,15 @@ echo "~~~~ installing bela kernel ~~~~"
 BELA_KERNEL_VERSION=`cat /root/kernel_version`
 mv /root/kernel_version /opt/Bela/
 
-dpkg -i "/root/linux-image-${BELA_KERNEL_VERSION}_1cross_armhf.deb"
-rm -rf "/root/linux-image-${BELA_KERNEL_VERSION}_1cross_armhf.deb"
-echo "~~~~ firmware ~~~~"
-dpkg -i "/root/linux-firmware-image-${BELA_KERNEL_VERSION}_1cross_armhf.deb"
-rm -rf "/root/linux-firmware-image-${BELA_KERNEL_VERSION}_1cross_armhf.deb"
-echo "~~~~ headers ~~~~"
-dpkg -i "/root/linux-headers-${BELA_KERNEL_VERSION}_1cross_armhf.deb"
-rm -rf "/root/linux-headers-${BELA_KERNEL_VERSION}_1cross_armhf.deb"
-#echo "~~~~ libc ~~~~"
-#dpkg -i "/root/linux-libc-dev_1cross_armhf.deb"
-rm -rf "/root/linux-libc-dev_1cross_armhf.deb"
+echo ~~~~ image and firmware ~~~~
+dpkg -i /root/linux-*image-${BELA_KERNEL_VERSION}*ross_armhf.deb
+echo ~~~~ headers ~~~~
+dpkg -i /root/linux-headers-${BELA_KERNEL_VERSION}*ross_armhf.deb
+#echo ~~~~ libc ~~~~
+#dpkg -i /root/linux-libc*ross_armhf.deb
 #echo "~~~~ depmod ~~~~"
 #depmod "${BELA_KERNEL_VERSION}" -a
-rm -rf /root/*.deb
+rm -rf /root/linux*${BELA_KERNEL_VERSION}*.deb
 
 # install kernel headers
 cd "/lib/modules/${BELA_KERNEL_VERSION}/build"
