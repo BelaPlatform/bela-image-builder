@@ -1,10 +1,13 @@
 #!/bin/bash -e
+
 [ -z "$targetdir" ] && { echo "undefined variable: \$targetdir"; exit 1; }
 [ -z "$DIR" ] && { echo "undefined variable: \$DIR"; exit 1; }
 
 sudo cp -v ${DIR}/kernel/*.deb $targetdir/root/
 sudo cp -v ${DIR}/kernel/kernel_version $targetdir/root/
 sudo cp -r ${DIR}/downloads/Bela $targetdir/root/
+sudo mkdir -p $targetdir/root/kernel-tools
+sudo cp -r ${DIR}/downloads/ti-linux-kernel-dev/KERNEL/arch/arm/tools/* ${DIR}/rootfs/root/kernel-tools
 
 sudo mkdir -p $targetdir/opt/Bela
 sudo cp -v ${DIR}/downloads/setup_8.x $targetdir/opt/Bela/
