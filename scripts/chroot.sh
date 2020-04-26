@@ -12,7 +12,7 @@ pip install Jinja2
 
 echo "~~~~ Installing node ~~~~"
 # install node
-/bin/bash /opt/Bela/setup_8.x
+/bin/bash /opt/Bela/setup_10.x
 # for whatever reason, listing libmicrohttpd-dev in packages.txt fails, so we
 # install it here instead
 PACKAGES="nodejs libmicrohttpd-dev"
@@ -93,10 +93,6 @@ make -j${CORES} seasocks
 cd /root
 rm -rf /opt/seasocks/build
 ldconfig
-echo "~~~~ Setting-up clang ~~~~"
-# Make 3.9 default
-update-alternatives --install /usr/bin/clang++ clang++ `which clang++-3.9` 100
-update-alternatives --install /usr/bin/clang clang `which clang-3.9` 100
 
 echo "~~~~ Installing Bela ~~~~"
 cd /root/Bela
@@ -129,7 +125,7 @@ echo "~~~~ Building checkinstall ~~~~"
 # library that comes with it with a patched one that we
 # compile from source
 make -j${CORES}
-cp installwatch/installwatch.so /usr/lib/checkinstall/
+make install
 
 cd /opt/bb.org-dtc
 echo "~~~~ Building bb.org-dtc ~~~~"
