@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-CORES=$(getconf _NPROCESSORS_ONLN)
+[ -z "$CORES" ] && CORES=1
 
 echo "~~~~ Updating the packages database ~~~~"
 apt-get update
@@ -63,9 +63,9 @@ rm -rf /root/*.deb
 # install kernel headers
 cd "/lib/modules/${BELA_KERNEL_VERSION}/build"
 echo "~~~~ Building kernel headers ~~~~"
-make headers_check
-make headers_install
-make scripts
+make headers_check -j${CORES}
+make headers_install -j${CORES}
+make scripts -j${CORES}
 
 # install misc utilities
 cd "/opt/am335x_pru_package/"
@@ -86,7 +86,7 @@ echo "~~~~ Building Seasocks ~~~~"
 mkdir build
 cd build
 cmake .. -DDEFLATE_SUPPORT=OFF -DUNITTESTS=OFF
-make seasocks seasocks_so
+make -j${CORES} seasocks seasocks_so
 /usr/bin/cmake -P cmake_install.cmake
 cd /root
 rm -rf /opt/seasocks/build
@@ -125,7 +125,7 @@ echo "~~~~ Building checkinstall ~~~~"
 # package that ships with Stretch is buggy. We replace the
 # library that comes with it with a patched one that we
 # compile from source
-make
+make -j${CORES}
 cp installwatch/installwatch.so /usr/lib/checkinstall/
 
 cd /opt/bb.org-dtc

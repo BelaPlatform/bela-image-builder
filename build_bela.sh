@@ -125,7 +125,7 @@ if [ -f ${NO_ROOTFS} ] ; then
 		sudo cp /etc/resolv.conf $targetdir/etc
 		sudo chroot $targetdir debootstrap/debootstrap --second-stage
 		if [ "${DO_NOT_CACHE_FS}" != "true" ] ; then
-			echo "Backing up the pre-chroot rootfs int o $targetdir_pre_chroot_backup"
+			echo "Backing up the pre-chroot rootfs into $targetdir_pre_chroot_backup"
 			rm -rf $targetdir_pre_chroot_backup
 			mkdir -p $targetdir_pre_chroot_backup
 			sudo cp -ar $targetdir $targetdir_pre_chroot_backup
@@ -138,7 +138,7 @@ if [ -f ${NO_ROOTFS} ] ; then
 
 
 	sudo cp -v ${DIR}/scripts/chroot.sh $targetdir/
-	sudo chroot $targetdir/ /chroot.sh 
+	sudo CORES=$CORES chroot $targetdir/ /chroot.sh
 	sudo mkdir -p $targetdir/sys
 	sudo mkdir -p $targetdir/proc
 	sudo rm $targetdir/usr/bin/qemu-arm-static
