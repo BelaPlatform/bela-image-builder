@@ -104,6 +104,7 @@ mkdir -p /root/Bela/projects
 cp -rv /root/Bela/IDE/templates/basic /root/Bela/projects/
 make -j${CORES} all PROJECT=basic AT=
 make -j${CORES} lib
+make -j${CORES} -f Makefile.libraries all
 ldconfig
 
 echo "~~~~ building doxygen docs ~~~~"
