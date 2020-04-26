@@ -10,7 +10,7 @@ sudo mkdir -p $targetdir/root/kernel-tools
 sudo cp -r ${DIR}/downloads/ti-linux-kernel-dev/KERNEL/arch/arm/tools/* ${DIR}/rootfs/root/kernel-tools
 
 sudo mkdir -p $targetdir/opt/Bela
-sudo cp -v ${DIR}/downloads/setup_8.x $targetdir/opt/Bela/
+sudo cp -v ${DIR}/downloads/setup_10.x $targetdir/opt/Bela/
 sudo cp -r ${DIR}/downloads/prudebug $targetdir/opt/
 sudo cp -r ${DIR}/downloads/checkinstall $targetdir/opt/
 sudo cp -r ${DIR}/downloads/am335x_pru_package $targetdir/opt/

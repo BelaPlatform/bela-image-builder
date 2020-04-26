@@ -24,7 +24,6 @@ locales
 device-tree-compiler
 sudo
 git
-git-core
 bison
 flex
 screen
@@ -46,9 +45,7 @@ dosfstools
 python-dev
 manpages-dev
 libssl-dev
-clang-3.9
-checkinstall
-libx11-dev
+clang
 distcc
 glibc-doc
 libfftw3-dev
