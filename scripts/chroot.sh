@@ -5,10 +5,10 @@
 #echo "~~~~ Updating the packages database ~~~~"
 #apt-get update # this is actually done by the node install script below
 
-echo "~~~~ Installing python packages ~~~~"
-pip install wheel
-pip install enum
-pip install Jinja2
+#echo "~~~~ Installing python packages ~~~~"
+#pip install wheel
+#pip install enum
+#pip install Jinja2
 
 echo "~~~~ Installing node ~~~~"
 # install node
