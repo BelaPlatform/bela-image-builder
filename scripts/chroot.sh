@@ -5,10 +5,10 @@
 echo "~~~~ Updating the packages database ~~~~"
 apt-get update
 
-echo "~~~~ Installing python packages ~~~~"
-pip install wheel
-pip install enum
-pip install Jinja2
+#echo "~~~~ Installing python packages ~~~~"
+#pip install wheel
+#pip install enum
+#pip install Jinja2
 
 echo "~~~~ Installing node ~~~~"
 # install node
