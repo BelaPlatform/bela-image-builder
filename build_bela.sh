@@ -114,13 +114,13 @@ fi
 
 # build the rootfs
 if [ -f ${NO_ROOTFS} ] ; then
-	echo "~~~~ building debian buster rootfs ~~~~"
+	echo "~~~~ building debian bullseye rootfs ~~~~"
 	rm -rf $targetdir
 	if [ -z "${CACHED_FS}" ] ; then
 		mkdir -p $targetdir
 		mkdir $targetdir/root
 		DEB_PACKAGES=`tr "\n" "," < ${DIR}/packages.txt | sed '$ s/.$//'`
-		sudo debootstrap --arch=armhf --foreign --components=main,free,non-free --include=${DEB_PACKAGES} buster $targetdir
+		sudo debootstrap --arch=armhf --foreign --components=main,free,non-free --include=${DEB_PACKAGES} bullseye $targetdir
 		sudo cp /usr/bin/qemu-arm-static $targetdir/usr/bin/
 		sudo cp /etc/resolv.conf $targetdir/etc
 		sudo chroot $targetdir debootstrap/debootstrap --second-stage

@@ -52,9 +52,9 @@ libfftw3-dev
 hostapd
 strace
 bc
-python-pip
 python-setuptools
 libreadline-dev
 libstdc++6-6-dbg
 liblo-dev
 libncurses5-dev
+libboost-regex1.67.0
