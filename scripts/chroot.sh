@@ -78,16 +78,16 @@ make install UNAME=${BELA_KERNEL_VERSION}
 make clean UNAME=${BELA_KERNEL_VERSION}
 
 # install seasocks (websocket library)
-cd /opt/seasocks
-echo "~~~~ Building Seasocks ~~~~"
-mkdir build
-cd build
-cmake .. -DDEFLATE_SUPPORT=OFF -DUNITTESTS=OFF
-make -j${CORES} seasocks seasocks_so
-/usr/bin/cmake -P cmake_install.cmake
-cd /root
-rm -rf /opt/seasocks/build
-ldconfig
+#cd /opt/seasocks
+#echo "~~~~ Building Seasocks ~~~~"
+#mkdir build
+#cd build
+#cmake .. -DDEFLATE_SUPPORT=OFF -DUNITTESTS=OFF
+#make -j${CORES} seasocks seasocks_so
+#/usr/bin/cmake -P cmake_install.cmake
+#cd /root
+#rm -rf /opt/seasocks/build
+#ldconfig
 
 echo "~~~~ Installing Bela ~~~~"
 cd /root/Bela
@@ -100,6 +100,10 @@ make idestartup
 
 mkdir -p /root/Bela/projects
 cp -rv /root/Bela/IDE/templates/basic /root/Bela/projects/
+# fix for missing seasocks
+> core/WSServer.cpp
+sed -i s/-lseasocks//g Makefile
+
 make -j${CORES} all PROJECT=basic AT=
 make -j${CORES} lib
 make -j${CORES} -f Makefile.libraries all
