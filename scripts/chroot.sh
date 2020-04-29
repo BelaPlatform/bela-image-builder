@@ -2,8 +2,8 @@
 
 [ -z "$CORES" ] && CORES=1
 
-echo "~~~~ Updating the packages database ~~~~"
-apt-get update
+#echo "~~~~ Updating the packages database ~~~~"
+#apt-get update # this is actually done by the node install script below
 
 echo "~~~~ Installing python packages ~~~~"
 pip install wheel
