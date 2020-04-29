@@ -163,3 +163,6 @@ systemctl enable bela_shutdown
 
 # don't do any network access in the chroot after this call
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
+
+# clean the package cache to free up space on the image
+apt-get clean
