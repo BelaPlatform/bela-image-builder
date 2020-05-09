@@ -158,6 +158,10 @@ if [ -n "${EMMC_FLASHER}" ] ; then
 	sudo rm $targetdir/usr/bin/qemu-arm-static
 fi
 
+# something (at least `pip install` does it) may have found a way to create
+#   /home/$SUDO_USER . Let's undo that
+sudo rm -rf $targetdir/home/$SUDO_USER
+
 # create SD image
 if [ -f ${NO_IMG} ] ; then
 	${DIR}/scripts/create_img.sh
