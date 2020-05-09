@@ -50,14 +50,15 @@ rm ${DIR}/boot/uEnv.tmp
 # copy rootfs
 sudo cp -a ${DIR}/rootfs/* /mnt/bela/root/
 
-printf "BELA_IMAGE_VERSION=\"$DESCRIPTION\"\n" | sudo tee /mnt/bela/boot/bela.version
-
 # seal off the motd with current tag and commit hash
 APPEND_TO_MOTD="sudo tee -a /mnt/bela/root/etc/motd"
 DESCRIPTION=`git -C ${DIR} describe --tags --dirty`
 printf "Bela image, $DESCRIPTION, `date "+%e %B %Y"`\n\n" | ${APPEND_TO_MOTD}
 printf "More info at https://github.com/BelaPlatform/bela-image-builder/releases\n\n" | ${APPEND_TO_MOTD}
 printf "Built with bela-image-builder `git -C ${DIR} branch | grep '\*' | sed 's/\*\s//g'`@`git -C ${DIR} rev-parse HEAD`\non `date`\n\n" | ${APPEND_TO_MOTD}
+
+# and do the same for bela.version in the FAT32 partition
+printf "BELA_IMAGE_VERSION=\"$DESCRIPTION\"\n" | sudo tee /mnt/bela/boot/bela.version
 
 # unmount
 sudo umount /mnt/bela/boot
