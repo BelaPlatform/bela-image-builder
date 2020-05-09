@@ -13,7 +13,10 @@ pip install Jinja2
 echo "~~~~ Installing node ~~~~"
 # install node
 /bin/bash /opt/Bela/setup_8.x
-apt-get install -y nodejs
+# for whatever reason, listing libmicrohttpd-dev in packages.txt fails, so we
+# install it here instead
+PACKAGES="nodejs libmicrohttpd-dev"
+apt-get install -y $PACKAGES
 
 echo "Finish installing xenomai"
 libtool --finish /usr/xenomai/lib
