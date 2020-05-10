@@ -1,0 +1,10 @@
+# This is Git's per-user configuration file.
+[merge]
+	tool = meld
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[diff]
+	wordregex = [[:alnum:]]+|[^[:space:]]
