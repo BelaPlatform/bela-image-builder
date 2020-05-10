@@ -97,7 +97,7 @@ update-alternatives --install /usr/bin/clang clang `which clang-3.9` 100
 echo "~~~~ Installing Bela ~~~~"
 cd /root/Bela
 for DIR in resources/tools/*; do
-	[ -d "$DIR" ] && { make -C "$DIR" install || exit 1; }
+	[ -d "$DIR" ] && { make -j${CORES} -C "$DIR" install || exit 1; }
 done
 
 make nostartup
@@ -147,7 +147,7 @@ make clean
 cd /opt/dtb-rebuilder
 echo "~~~~ Building Bela dtb ~~~~"
 make clean
-make
+make -j${CORES}
 make install
 make clean
 
