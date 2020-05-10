@@ -56,9 +56,9 @@ dpkg -i /root/linux-headers-${BELA_KERNEL_VERSION}*ross_armhf.deb
 #dpkg -i /root/linux-libc*ross_armhf.deb
 #echo "~~~~ depmod ~~~~"
 #depmod "${BELA_KERNEL_VERSION}" -a
-rm -rf /root/linux*${BELA_KERNEL_VERSION}*.deb
+rm -rf /root/linux-*.deb
 
-# install kernel headers
+#  rebuild kernel scripts and tools
 cd "/lib/modules/${BELA_KERNEL_VERSION}/build"
 echo "~~~~ Building kernel headers ~~~~"
 make headers_check -j${CORES}
