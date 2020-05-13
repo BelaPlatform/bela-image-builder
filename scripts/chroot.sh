@@ -57,6 +57,8 @@ dpkg -i /root/linux-headers-${BELA_KERNEL_VERSION}*ross_armhf.deb
 #echo "~~~~ depmod ~~~~"
 #depmod "${BELA_KERNEL_VERSION}" -a
 rm -rf /root/linux-*.deb
+#ensure #include <linux/version.h> returns the same value as `uname -r`. Workaround for https://github.com/RobertCNelson/ti-linux-kernel-dev/issues/38
+cp /usr/src/linux-headers-${BELA_KERNEL_VERSION}/include/generated/uapi/linux/version.h /usr/include/linux/version.h
 
 #  rebuild kernel scripts and tools
 cd "/lib/modules/${BELA_KERNEL_VERSION}/build"
