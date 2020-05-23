@@ -8,7 +8,7 @@ iface usb0 inet static
     netmask 255.255.255.0
     network 192.168.6.0
 
-# USB ECM gadget (macOS / Linux compatible)
+# USB NCM gadget (macOS / Linux compatible)
 auto usb1
 iface usb1 inet static
     address 192.168.7.2
