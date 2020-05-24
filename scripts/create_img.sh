@@ -65,7 +65,7 @@ sudo umount /mnt/bela/boot
 sudo umount /mnt/bela/root
 sudo kpartx -d /dev/${LOOP}
 sudo losetup -d /dev/${LOOP}
-sudo chown $SUDO_USER ${DIR}/bela.img
+sudo chown $SUDO_UID:$SUDO_GID ${DIR}/bela.img
 
 echo "bela.img created"
 echo
