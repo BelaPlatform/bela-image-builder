@@ -19,7 +19,6 @@ alias grep="grep --color=auto"
 # alias cp='cp -i'
 # alias mv='mv -i'
 
-export SLOTS=/sys/devices/platform/bone_capemgr/slots
 export PINS=/sys/kernel/debug/pinctrl/44e10800.pinmux/pins
 
 export HISTSIZE=1000
