@@ -71,4 +71,4 @@ echo "bela.img created"
 echo
 GIT_TAG=`git -C ${DIR} describe --tags --dirty`
 # Are we on a tag? Try to list tags with the names above, if we get 0 lines, then we are not.
-[ "`git tag -l \"$GIT_TAG\" | wc -l`" -eq 0 ] && echo "You do not seem to be on a git tag or your working tree is dirty. Are you sure you want to use this image for release?" >&2
+[ "`git tag -l \"$GIT_TAG\" | wc -l`" -eq 0 ] && echo "You do not seem to be on a git tag or your working tree is dirty. Are you sure you want to use this image for release?" >&2 || true
