@@ -14,7 +14,8 @@ echo "Augmented Instruments Ltd" > strings/0x409/manufacturer
 echo "Bela" > strings/0x409/product
  
 # Two USB-network drivers: one for Windows, one for macOS (Linux will see two distinct interfaces)
-mkdir -p functions/rndis.usb0           # network, Windows compatible
+FUNC_RNDIS=functions/rndis.usb0
+mkdir -p $FUNC_RNDIS                    # network, Windows compatible
 mkdir -p functions/ncm.usb0             # network, macOS compatible
 mkdir -p functions/mass_storage.0       # boot partition
 mkdir -p functions/acm.usb0             # serial
@@ -49,18 +50,18 @@ echo 0xbc > os_desc/b_vendor_code
 echo MSFT100 > os_desc/qw_sign
 
 /opt/Bela/bela_mac.sh || true
-cat /etc/cpsw_2_mac > functions/rndis.usb0/host_addr || true
-cat /etc/cpsw_1_mac > functions/rndis.usb0/dev_addr || true
+cat /etc/cpsw_2_mac > $FUNC_RNDIS/host_addr || true
+cat /etc/cpsw_1_mac > $FUNC_RNDIS/dev_addr || true
 cat /etc/cpsw_4_mac > functions/ncm.usb0/host_addr || true
 cat /etc/cpsw_5_mac > functions/ncm.usb0/dev_addr || true
 
-mkdir -p functions/rndis.usb0/os_desc/interface.rndis
-echo RNDIS > functions/rndis.usb0/os_desc/interface.rndis/compatible_id
-echo 5162001 > functions/rndis.usb0/os_desc/interface.rndis/sub_compatible_id
+mkdir -p $FUNC_RNDIS/os_desc/interface.rndis
+echo RNDIS > $FUNC_RNDIS/os_desc/interface.rndis/compatible_id
+echo 5162001 > $FUNC_RNDIS/os_desc/interface.rndis/sub_compatible_id
 
 mkdir -p configs/c.1
 echo 500 > configs/c.1/MaxPower
-ln -s functions/rndis.usb0 configs/c.1/ # this needs to be loaded first in order to work on Windows
+ln -s $FUNC_RNDIS configs/c.1/ # this needs to be loaded first in order to work on Windows
 ln -s functions/ncm.usb0 configs/c.1/
 ln -s functions/mass_storage.0 configs/c.1/
 ln -s functions/acm.usb0   configs/c.1/
