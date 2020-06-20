@@ -5,7 +5,7 @@ mkdir g && cd g
  
 echo 0x1d6b > idVendor  # Linux Foundation
 echo 0x0104 > idProduct # Multifunction Composite Gadget
-echo 0x0101 > bcdDevice # v1.0.1
+echo 0x0102 > bcdDevice # v1.0.2
 echo 0x0200 > bcdUSB    # USB 2.0
  
 mkdir -p strings/0x409
@@ -58,6 +58,11 @@ cat /etc/cpsw_5_mac > functions/ncm.usb0/dev_addr || true
 mkdir -p $FUNC_RNDIS/os_desc/interface.rndis
 echo RNDIS > $FUNC_RNDIS/os_desc/interface.rndis/compatible_id
 echo 5162001 > $FUNC_RNDIS/os_desc/interface.rndis/sub_compatible_id
+# The below are needed starting from kernel 4.14: the defaults have reverted to 2/6/0,
+# which no longer works with Windows or HoRNDIS
+echo ef > $FUNC_RNDIS/class
+echo 04 > $FUNC_RNDIS/subclass
+echo 01 > $FUNC_RNDIS/protocol
 
 mkdir -p configs/c.1
 echo 500 > configs/c.1/MaxPower
