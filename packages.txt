@@ -58,3 +58,4 @@ bc
 python-pip
 python-setuptools
 libreadline-dev
+libstdc++6-6-dbg
