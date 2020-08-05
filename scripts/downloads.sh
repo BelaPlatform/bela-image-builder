@@ -61,8 +61,8 @@ git_branch="master"
 update_git
 
 git_project_name="bb.org-dtc"
-git_clone_address="https://github.com/RobertCNelson/dtc"
-git_branch="dtc-v1.4.4"
+git_clone_address="https://git.kernel.org/pub/scm/utils/dtc/dtc.git/ "
+git_branch="v1.6.0"
 update_git
 
 git_project_name="dtb-rebuilder"
