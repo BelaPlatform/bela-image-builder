@@ -15,8 +15,8 @@ sudo cp -r ${DIR}/downloads/prudebug $targetdir/opt/
 sudo cp -r ${DIR}/downloads/checkinstall $targetdir/opt/
 sudo cp -r ${DIR}/downloads/am335x_pru_package $targetdir/opt/
 sudo cp -r ${DIR}/downloads/bb.org-overlays $targetdir/opt/
-sudo cp -r ${DIR}/downloads/bb.org-dtc $targetdir/opt/
-sudo cp -r ${DIR}/downloads/dtb-rebuilder $targetdir/opt/
+sudo cp -r ${DIR}/downloads/dtc $targetdir/opt/
+sudo cp -r ${DIR}/downloads/BeagleBoard-DeviceTrees $targetdir/opt/
 sudo cp -r ${DIR}/downloads/seasocks $targetdir/opt/
 sudo cp -r ${DIR}/downloads/xenomai-3 $targetdir/opt/
 sudo cp -r ${DIR}/downloads/rtdm_pruss_irq $targetdir/opt/

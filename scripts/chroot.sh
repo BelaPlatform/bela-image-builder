@@ -87,8 +87,8 @@ cd /opt/seasocks
 echo "~~~~ Building Seasocks ~~~~"
 mkdir build
 cd build
-cmake .. -DDEFLATE_SUPPORT=OFF -DUNITTESTS=OFF
-make -j${CORES} seasocks seasocks_so
+cmake .. -DDEFLATE_SUPPORT=OFF -DUNITTESTS=OFF -DSEASOCKS_SHARED=ON
+make -j${CORES} seasocks
 /usr/bin/cmake -P cmake_install.cmake
 cd /root
 rm -rf /opt/seasocks/build
@@ -131,10 +131,10 @@ echo "~~~~ Building checkinstall ~~~~"
 make -j${CORES}
 cp installwatch/installwatch.so /usr/lib/checkinstall/
 
-cd /opt/bb.org-dtc
-echo "~~~~ Building bb.org-dtc ~~~~"
+cd /opt/dtc
+echo "~~~~ Building dtc ~~~~"
 make clean
-make -j${CORES} PREFIX=/usr/local CC=gcc CROSS_COMPILE= all
+make -j${CORES} PREFIX=/usr/local CC=gcc CROSS_COMPILE= EXTRA_CFLAGS=-Wno-sign-compare all
 make PREFIX=/usr/local/ install
 ln -sf /usr/local/bin/dtc /usr/bin/dtc
 echo "dtc: `/usr/bin/dtc --version`"
@@ -148,8 +148,8 @@ make install
 cp -v ./tools/beaglebone-universal-io/config-pin /usr/local/bin/
 make clean
 
-cd /opt/dtb-rebuilder
-echo "~~~~ Building Bela dtb ~~~~"
+cd /opt/BeagleBoard-DeviceTrees
+echo "~~~~ Building device trees ~~~~"
 make clean
 make -j${CORES}
 make install

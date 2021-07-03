@@ -27,7 +27,7 @@ update_git(){
 
 git_project_name="ti-linux-kernel-dev"
 git_clone_address="https://github.com/RobertCNelson/ti-linux-kernel-dev"
-git_branch="ti-linux-xenomai-4.14.y"
+git_branch="ti-linux-xenomai-4.19.y"
 update_git
 
 git_project_name="xenomai-3"
@@ -60,14 +60,14 @@ git_clone_address="https://github.com/BelaPlatform/bb.org-overlays.git"
 git_branch="master"
 update_git
 
-git_project_name="bb.org-dtc"
-git_clone_address="https://git.kernel.org/pub/scm/utils/dtc/dtc.git/ "
-git_branch="v1.6.0"
+git_project_name="dtc"
+git_clone_address="https://git.kernel.org/pub/scm/utils/dtc/dtc.git"
+git_branch="master"
 update_git
 
-git_project_name="dtb-rebuilder"
-git_clone_address="https://github.com/RobertCNelson/dtb-rebuilder.git"
-git_branch="4.14-ti"
+git_project_name="BeagleBoard-DeviceTrees"
+git_clone_address="https://github.com/beagleboard/BeagleBoard-DeviceTrees/"
+git_branch="v4.19.x-ti-overlays"
 update_git
 
 git_project_name="seasocks"
