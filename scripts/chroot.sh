@@ -142,26 +142,27 @@ make install
 make clean
 
 echo "~~~~ Setting up distcc shorthands ~~~~"
+CLANG_VERSION=11
 (
 cat << 'HEREDOC'
 #!/bin/bash
-clang-3.9 $@
+clang-${CLANG_VERSION} $@
 HEREDOC
-) > /usr/local/bin/clang-3.9-arm
+) > /usr/local/bin/clang-${CLANG_VERSION}-arm
 (
 cat << 'HEREDOC'
 #!/bin/bash
-clang++-3.9 $@ -stdlib=libstdc++
+clang++-${CLANG_VERSION} $@ -stdlib=libstdc++
 HEREDOC
-) > /usr/local/bin/clang++-3.9-arm
+) > /usr/local/bin/clang++-${CLANG_VERSION}-arm
 (
 cat << 'HEREDOC'
 #!/bin/bash
 export DISTCC_HOSTS=192.168.7.1
 export DISTCC_VERBOSE=0
-export DISTCC_FALLBACK=0 # does not work on distcc-3.1
+export DISTCC_FALLBACK=0
 export DISTCC_BACKOFF_PERIOD=0
-distcc clang-3.9-arm $@
+distcc clang-${CLANG_VERSION}-arm $@
 HEREDOC
 ) > /usr/local/bin/distcc-clang
 (
@@ -169,12 +170,12 @@ cat << 'HEREDOC'
 #!/bin/bash
 export DISTCC_HOSTS=192.168.7.1
 export DISTCC_VERBOSE=0
-export DISTCC_FALLBACK=0 # does not work on distcc-3.1
+export DISTCC_FALLBACK=0
 export DISTCC_BACKOFF_PERIOD=0
-distcc clang++-3.9-arm $@
+distcc clang++-${CLANG_VERSION}-arm $@
 HEREDOC
 ) > /usr/local/bin/distcc-clang++
-chmod +x /usr/local/bin/clang*-3.9-arm /usr/local/bin/distcc-clang*
+chmod +x /usr/local/bin/clang*-${CLANG_VERSION}-arm /usr/local/bin/distcc-clang*
 
 # clear root password
 passwd -d root
