@@ -39,5 +39,4 @@ sudo cp -r $KERNEL_DIR_HOST/$MISSING_DIR/* $DESTDIR/$MISSING_DIR
 echo "~~~~ installing xenomai  ~~~~"
 sudo make -C ${DIR}/downloads/xenomai-3-build install DESTDIR=$targetdir --no-print-directory
 
-sudo cp -rv ${DIR}/misc/rootfs/* $targetdir/
-
+sudo rsync -avK ${DIR}/misc/rootfs/* $targetdir/
