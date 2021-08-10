@@ -59,7 +59,7 @@ rm -rf /root/linux-*.deb
 #ensure #include <linux/version.h> returns the same value as `uname -r`. Workaround for https://github.com/RobertCNelson/ti-linux-kernel-dev/issues/38
 cp /usr/src/linux-headers-${BELA_KERNEL_VERSION}/include/generated/uapi/linux/version.h /usr/include/linux/version.h
 
-#  rebuild kernel scripts and tools
+# rebuild kernel scripts and tools
 cd "/lib/modules/${BELA_KERNEL_VERSION}/build"
 echo "~~~~ Building kernel headers ~~~~"
 cp -r /root/kernel-tools/* arch/arm/tools/
@@ -202,5 +202,5 @@ systemctl enable bela_shutdown
 # don't do any network access in the chroot after this call
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
-# clean the package cache to free up space on the image
+# clean the package cache to free up space on the image
 apt-get clean
