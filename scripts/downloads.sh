@@ -60,11 +60,6 @@ git_clone_address="https://github.com/BelaPlatform/bb.org-overlays.git"
 git_branch="master"
 update_git
 
-git_project_name="dtc"
-git_clone_address="https://git.kernel.org/pub/scm/utils/dtc/dtc.git"
-git_branch="master"
-update_git
-
 git_project_name="BeagleBoard-DeviceTrees"
 git_clone_address="https://github.com/beagleboard/BeagleBoard-DeviceTrees/"
 git_branch="v4.19.x-ti-overlays"
