@@ -137,7 +137,7 @@ make clean
 cd /opt/dtb-rebuilder
 echo "~~~~ Building Bela dtb ~~~~"
 make clean
-make -j${CORES}
+make -j${CORES} KERNEL_VERSION=${BELA_KERNEL_VERSION}
 make install
 make clean
 
