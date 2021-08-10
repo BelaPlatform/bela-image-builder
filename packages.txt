@@ -6,7 +6,6 @@ libtool
 libtool-bin
 libltdl-dev
 file
-gdb
 vim
 less
 avahi-daemon
@@ -42,7 +41,7 @@ wpasupplicant
 i2c-tools
 can-utils
 dosfstools
-python-dev
+python3-dev
 manpages-dev
 libssl-dev
 clang
@@ -54,7 +53,5 @@ strace
 bc
 python-setuptools
 libreadline-dev
-libstdc++6-6-dbg
 liblo-dev
 libncurses5-dev
-libboost-regex1.67.0

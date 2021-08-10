@@ -13,9 +13,8 @@
 echo "~~~~ Installing node ~~~~"
 # install node
 /bin/bash /opt/Bela/setup_10.x
-# for whatever reason, listing libmicrohttpd-dev in packages.txt fails, so we
-# install it here instead
-PACKAGES="nodejs libmicrohttpd-dev"
+# some packages make deboostrap fail, so we install them here instead
+PACKAGES="nodejs libmicrohttpd-dev gdb gettext"
 apt-get install -y $PACKAGES
 
 echo "Finish installing xenomai"
