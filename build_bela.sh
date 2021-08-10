@@ -102,8 +102,9 @@ if [ -f ${NO_KERNEL} ] ; then
 	$UNSU ${DIR}/scripts/build_kernel.sh
 fi
 
-# grab the kernel's cross-compiler
-. ${DIR}/downloads/ti-linux-kernel-dev/.CC
+# grab the cross-compiler
+. ${DIR}/downloads/CC_PREFIX
+CC=${CC_PREFIX}gcc
 PATH=$PATH:`dirname $CC`
 CC=${CC}
 export CC PATH

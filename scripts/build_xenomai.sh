@@ -6,7 +6,6 @@
 XENO_BUILD=${DIR}/downloads/xenomai-3-build
 
 # cross-compile xenomai
-CC=${CC}gcc
 echo "~~~~ cross-compiling xenomai  ~~~~"
 cd "${DIR}/downloads/xenomai-3"
 scripts/bootstrap

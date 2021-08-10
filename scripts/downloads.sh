@@ -94,6 +94,17 @@ if [ ! -f "setup_10.x" ] ; then
 	wget https://raw.githubusercontent.com/nodesource/distributions/master/deb/setup_10.x
 fi
 
+# get a GCC for cross compiling non-kernel stuff
+GCCV=8.3-2019.03
+GCC_FOLDER=gcc-arm-$GCCV-x86_64-arm-linux-gnueabihf
+if [ ! -d "$GCC_FOLDER" ] ; then
+	wget https://developer.arm.com/-/media/Files/downloads/gnu-a/$GCCV/binrel/$GCC_FOLDER.tar.xz
+	unxz $GCC_FOLDER.tar.xz
+	tar xf $GCC_FOLDER.tar
+	echo CC_PREFIX=`pwd`/$GCC_FOLDER/bin/arm-linux-gnueabihf- > CC_PREFIX
+fi
+
+rm *.xz *.tar
 rm -rf deb
 mkdir -p deb && cd deb
 
