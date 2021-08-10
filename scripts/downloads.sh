@@ -32,7 +32,7 @@ update_git
 
 git_project_name="xenomai-3"
 git_clone_address="git://git.xenomai.org/xenomai-3.git"
-git_branch="stable/v3.0.x"
+git_branch="stable/v3.1.x"
 update_git
 
 git_project_name="Bela"
