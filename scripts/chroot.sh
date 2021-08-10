@@ -126,15 +126,6 @@ echo "~~~~ Building checkinstall ~~~~"
 make -j${CORES}
 make install
 
-cd /opt/bb.org-dtc
-echo "~~~~ Building bb.org-dtc ~~~~"
-make clean
-make -j${CORES} PREFIX=/usr/local CC=gcc CROSS_COMPILE= all
-make PREFIX=/usr/local/ install
-ln -sf /usr/local/bin/dtc /usr/bin/dtc
-echo "dtc: `/usr/bin/dtc --version`"
-make clean
-
 cd /opt/bb.org-overlays
 echo "~~~~ Building bb.org-overlays ~~~~"
 make clean
