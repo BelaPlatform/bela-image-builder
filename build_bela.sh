@@ -2,7 +2,7 @@
 
 # this script downloads, builds and compiles an image (including kernel, bootloader and rootfs) for Bela
 
-DEPENDENCIES="debootstrap qemu-arm-static autoreconf libtool arm-linux-gnueabihf-ranlib kpartx setuidgid wget bison flex pkg-config"
+DEPENDENCIES="debootstrap qemu-arm-static autoreconf libtool arm-linux-gnueabihf-ranlib kpartx setuidgid wget bison flex pkg-config arm-linux-gnueabihf-gcc"
 
 for a in $DEPENDENCIES; do
 	which $a > /dev/null ||\
@@ -105,7 +105,7 @@ fi
 # grab the kernel's cross-compiler
 . ${DIR}/downloads/ti-linux-kernel-dev/.CC
 PATH=$PATH:`dirname $CC`
-CC=${CC}
+CC=arm-linux-gnueabihf-
 export CC PATH
 
 if [ -f ${NO_BUILD_XENOMAI} ] ; then
