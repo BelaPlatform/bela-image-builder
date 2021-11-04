@@ -77,7 +77,7 @@ update_git
 
 git_project_name="seasocks"
 git_clone_address="https://github.com/mattgodbolt/seasocks.git"
-git_branch="master"
+git_branch="v1.4.4"
 update_git
 
 git_project_name="rtdm_pruss_irq"
