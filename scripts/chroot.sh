@@ -87,8 +87,8 @@ cd /opt/seasocks
 echo "~~~~ Building Seasocks ~~~~"
 mkdir build
 cd build
-cmake .. -DDEFLATE_SUPPORT=OFF -DUNITTESTS=OFF
-make -j${CORES} seasocks seasocks_so
+cmake .. -DDEFLATE_SUPPORT=OFF -DUNITTESTS=OFF -DSEASOCKS_SHARED=ON
+make -j${CORES} seasocks
 /usr/bin/cmake -P cmake_install.cmake
 cd /root
 rm -rf /opt/seasocks/build
