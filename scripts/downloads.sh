@@ -9,13 +9,18 @@ update_git(){
 	printf "Updating ${git_project_name}..."
 	if [ -f ${git_project_name}/.git/config ] ; then
 		cd ${git_project_name}/
-		git fetch
+		git fetch --tags ${git_clone_address}
 		git checkout --force $git_branch
-		git pull
+		# if git_branch does not exist on any remote...
+		git branch -a | grep -q "/$git_branch$" || git_tag=$git_branch
 		if [ -n "$git_tag" ]
 		then
+			git checkout -b tmpaaaaaaaaa
 			git branch -D $git_tag || true
 			git checkout -b $git_tag $git_tag
+			git branch -D tmpaaaaaaaaa
+		else
+			git pull
 		fi
 		git rev-parse HEAD > gitcommithash
 		cd -
