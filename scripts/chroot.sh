@@ -144,19 +144,19 @@ make clean
 echo "~~~~ Setting up distcc shorthands ~~~~"
 CLANG_VERSION=11
 (
-cat << 'HEREDOC'
+cat << HEREDOC
 #!/bin/bash
 clang-${CLANG_VERSION} $@
 HEREDOC
 ) > /usr/local/bin/clang-${CLANG_VERSION}-arm
 (
-cat << 'HEREDOC'
+cat << HEREDOC
 #!/bin/bash
 clang++-${CLANG_VERSION} $@ -stdlib=libstdc++
 HEREDOC
 ) > /usr/local/bin/clang++-${CLANG_VERSION}-arm
 (
-cat << 'HEREDOC'
+cat << HEREDOC
 #!/bin/bash
 export DISTCC_HOSTS=192.168.7.1
 export DISTCC_VERBOSE=0
@@ -166,7 +166,7 @@ distcc clang-${CLANG_VERSION}-arm $@
 HEREDOC
 ) > /usr/local/bin/distcc-clang
 (
-cat << 'HEREDOC'
+cat << HEREDOC
 #!/bin/bash
 export DISTCC_HOSTS=192.168.7.1
 export DISTCC_VERBOSE=0
