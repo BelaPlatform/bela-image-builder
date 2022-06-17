@@ -107,11 +107,8 @@ if [ -f ${NO_KERNEL} ] ; then
 	$UNSU ${DIR}/scripts/build_kernel.sh
 fi
 
-# grab the kernel's cross-compiler
-. ${DIR}/downloads/ti-linux-kernel-dev/.CC
-PATH=$PATH:`dirname $CC`
-CC=arm-linux-gnueabihf-
-export CC PATH
+# this is normally from `config`
+export CC
 
 if [ -f ${NO_BUILD_XENOMAI} ] ; then
 	$UNSU ${DIR}/scripts/build_xenomai.sh
