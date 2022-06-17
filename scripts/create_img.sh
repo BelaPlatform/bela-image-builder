@@ -70,12 +70,13 @@ rm ${DIR}/boot/uEnv.tmp
 # copy rootfs
 sudo cp -a ${DIR}/rootfs/* /mnt/bela/root/
 
+GIT="$UNSU git -C ${DIR}"
 # seal off the motd with current tag and commit hash
 APPEND_TO_MOTD="sudo tee -a /mnt/bela/root/etc/motd"
-DESCRIPTION=`git -C ${DIR} describe --tags --dirty`
+DESCRIPTION=`$GIT describe --tags --dirty`
 printf "Bela image, $DESCRIPTION, `date "+%e %B %Y"`\n\n" | ${APPEND_TO_MOTD}
 printf "More info at https://github.com/BelaPlatform/bela-image-builder/releases\n\n" | ${APPEND_TO_MOTD}
-printf "Built with bela-image-builder `git -C ${DIR} branch | grep '\*' | sed 's/\*\s//g'`@`git -C ${DIR} rev-parse HEAD`\non `date`\n\n" | ${APPEND_TO_MOTD}
+printf "Built with bela-image-builder `$GIT branch | grep '\*' | sed 's/\*\s//g'`@`$GIT rev-parse HEAD`\non `date`\n\n" | ${APPEND_TO_MOTD}
 
 # and do the same for bela.version in the FAT32 partition
 printf "BELA_IMAGE_VERSION=\"$DESCRIPTION\"\n" | sudo tee /mnt/bela/boot/bela.version
@@ -83,8 +84,8 @@ printf "BELA_IMAGE_VERSION=\"$DESCRIPTION\"\n" | sudo tee /mnt/bela/boot/bela.ve
 
 echo "bela.img created"
 echo
-GIT_TAG=`git -C ${DIR} describe --tags --dirty`
+GIT_TAG=`$GIT describe --tags --dirty`
 # Are we on a tag? Try to list tags with the names above, if we get 0 lines, then we are not.
-[ "`git tag -l \"$GIT_TAG\" | wc -l`" -eq 0 ] && echo "You do not seem to be on a git tag or your working tree is dirty. Are you sure you want to use this image for release?" >&2 || true
+[ "`$GIT tag -l \"$GIT_TAG\" | wc -l`" -eq 0 ] && echo "You do not seem to be on a git tag or your working tree is dirty. Are you sure you want to use this image for release?" >&2 || true
 SUCCESS=1
 # final_check will be called now
