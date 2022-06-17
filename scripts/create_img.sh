@@ -13,12 +13,32 @@ dd if=/dev/zero of=${DIR}/bela.img bs=1048576 count=3579 # 3579 MiB
 # partition it
 sudo sfdisk ${DIR}/bela.img < ${DIR}/bela.sfdisk
 
+SUCCESS=0
+IMAGE=${DIR}/bela.img
+final_check() {
+	# unmount
+	set +e
+	sudo umount /mnt/bela/boot
+	sudo umount /mnt/bela/root
+	if [ -n "$LOOP" ]
+	then
+		sudo kpartx -d /dev/${LOOP}
+		sudo losetup -d /dev/${LOOP}
+	fi
+	if [ $SUCCESS -eq 1 ]
+	then
+		sudo chown $SUDO_UID:$SUDO_GID $IMAGE
+	else
+		sudo rm -f $IMAGE
+	fi
+}
+trap final_check EXIT
 # mount it
 LOOP=`losetup -f`
 LOOP=`echo $LOOP | sed "s/\/dev\///"`
 #sudo losetup /dev/$LOOP
 # -s makes sure the operation is applied before continuing
-sudo kpartx -s -av ${DIR}/bela.img
+sudo kpartx -s -av $IMAGE
 sudo mkfs.vfat /dev/mapper/${LOOP}p1
 sudo dosfslabel /dev/mapper/${LOOP}p1 BELABOOT
 sudo mkfs.ext4 /dev/mapper/${LOOP}p2
@@ -60,15 +80,11 @@ printf "Built with bela-image-builder `git -C ${DIR} branch | grep '\*' | sed 's
 # and do the same for bela.version in the FAT32 partition
 printf "BELA_IMAGE_VERSION=\"$DESCRIPTION\"\n" | sudo tee /mnt/bela/boot/bela.version
 
-# unmount
-sudo umount /mnt/bela/boot
-sudo umount /mnt/bela/root
-sudo kpartx -d /dev/${LOOP}
-sudo losetup -d /dev/${LOOP}
-sudo chown $SUDO_UID:$SUDO_GID ${DIR}/bela.img
 
 echo "bela.img created"
 echo
 GIT_TAG=`git -C ${DIR} describe --tags --dirty`
 # Are we on a tag? Try to list tags with the names above, if we get 0 lines, then we are not.
 [ "`git tag -l \"$GIT_TAG\" | wc -l`" -eq 0 ] && echo "You do not seem to be on a git tag or your working tree is dirty. Are you sure you want to use this image for release?" >&2 || true
+SUCCESS=1
+# final_check will be called now
