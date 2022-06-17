@@ -46,6 +46,11 @@ unset DO_NOT_CACHE_FS
 unset EMMC_FLASHER
 export CORES=$(getconf _NPROCESSORS_ONLN)
 
+[ -f $DIR/config ] && . $DIR/config || {
+	echo Error: \`$DIR/config\` was not found. Use \`$DIR/config.template\` as a starting point. >&2
+	exit 1;
+}
+
 while [ ! -z "$1" ] ; do
 	case $1 in
 	-h|--help)

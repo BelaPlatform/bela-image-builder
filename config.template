@@ -1,0 +1,5 @@
+# copy this to `config` and edit variables as needed
+
+# the compiler to use for building Xenomai. Must be the same version as the one in
+CC=/home/user/gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc
+# you can add more variables below to provide default commandline options
