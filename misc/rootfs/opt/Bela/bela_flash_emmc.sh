@@ -92,7 +92,6 @@ dosfslabel ${DEVICE}p1 BELABOOT
 e2label ${DEVICE}p2 BELAROOTFS
 
 mount ${DEVICE}p1 $MNT_BOOT
-mount ${DEVICE}p2 $MNT_ROOT
 
 echo "copying files, this may take a few minutes..."
 
@@ -105,6 +104,8 @@ rsync -r --exclude=$MNT_THIS_BOOT/MLO,$MNT_THIS_BOOT/u-boot.img,$MNT_THIS_BOOT/'
 cat $MNT_THIS_BOOT/uEnv.txt | sed "s/^\(\s*mmcid=\).*/\1$MMCID/" > $MNT_BOOT/uEnv.txt
 umount $MNT_THIS_BOOT
 rm -rf $MNT_THIS_BOOT
+
+mount ${DEVICE}p2 $MNT_ROOT
 for a in /boot/ /dev/ /etc/ /home/ /opt/ /root/ /srv/ /usr/ /var/; do
 	cp -a $a $MNT_ROOT
 done
