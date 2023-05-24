@@ -24,7 +24,7 @@ USR3=/sys/class/leds/beaglebone\:green\:usr3/trigger
 SUCCESS=0
 cleanup() {
 	for a in $MNT_BOOT $MNT_ROOT $MNT_THIS_BOOT; do
-		umount $a && rm -rf $a || true
+		mountpoint -q $a && umount $a && rm -rf $a || true
 	done
 }
 
