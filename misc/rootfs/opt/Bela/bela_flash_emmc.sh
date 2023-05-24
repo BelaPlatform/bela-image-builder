@@ -91,16 +91,29 @@ mkfs.ext4 -F ${DEVICE}p2
 dosfslabel ${DEVICE}p1 BELABOOT
 e2label ${DEVICE}p2 BELAROOTFS
 
-mount ${DEVICE}p1 $MNT_BOOT
 
 echo "copying files, this may take a few minutes..."
 
-mount ${THIS_DEVICE}p1 $MNT_THIS_BOOT
-cp $MNT_THIS_BOOT/MLO $MNT_BOOT
-sync
-cp $MNT_THIS_BOOT/u-boot.img $MNT_BOOT
-sync
-rsync -r --exclude=$MNT_THIS_BOOT/MLO,$MNT_THIS_BOOT/u-boot.img,$MNT_THIS_BOOT/'FSCK*REC' $MNT_THIS_BOOT/* $MNT_BOOT
+function mount_fat()
+{
+	mount ${DEVICE}p1 $MNT_BOOT
+	mount ${THIS_DEVICE}p1 $MNT_THIS_BOOT
+}
+
+if [ $(lsb_release -rs) -ge 11 ]; then
+	# bullseye's cp command doesn't seem to copy files exactly the same as
+	# previous versions. dd, OTOH, does the job just fine (while dest and
+	# source are unmounted)
+	dd if=/dev/mmcblk0 of=/dev/mmcblk1 bs=512 seek=2048 skip=2048 count=137953
+	mount_fat
+else
+	mount_fat
+	cp $MNT_THIS_BOOT/MLO $MNT_BOOT
+	sync
+	cp $MNT_THIS_BOOT/u-boot.img $MNT_BOOT
+	sync
+	rsync -r --exclude=$MNT_THIS_BOOT/MLO,$MNT_THIS_BOOT/u-boot.img,$MNT_THIS_BOOT/'FSCK*REC' $MNT_THIS_BOOT/* $MNT_BOOT
+fi
 cat $MNT_THIS_BOOT/uEnv.txt | sed "s/^\(\s*mmcid=\).*/\1$MMCID/" > $MNT_BOOT/uEnv.txt
 umount $MNT_THIS_BOOT
 rm -rf $MNT_THIS_BOOT
