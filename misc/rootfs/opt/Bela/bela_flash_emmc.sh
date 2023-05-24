@@ -66,7 +66,7 @@ mount | grep "${DEVICE}p2" | grep -q "on / " && {
 	exit 1;
 }
 
-# just in case anything from the destination is mounted, unmount it
+# just in case anything from the destination is mounted, unmount it
 umount -A ${DEVICE}p1 || true
 umount -A ${DEVICE}p2 || true
 mount | grep  "${DEVICE}" && {
