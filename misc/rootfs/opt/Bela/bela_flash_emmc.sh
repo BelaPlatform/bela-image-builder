@@ -30,10 +30,10 @@ cleanup() {
 
 final_check()
 {
+	set +x
+	cleanup
 	if [ $SUCCESS -eq 0 ]
 	then
-		cleanup
-		set +x
 		echo "An error occurred while flashing the $FLASH_DESTINATION" >& 2
 		while sleep 0.5
 		do
@@ -118,4 +118,3 @@ echo "mmc0" > $USR1
 echo "none" > $USR2
 echo "mmc1" > $USR3
 SUCCESS=1
-cleanup
