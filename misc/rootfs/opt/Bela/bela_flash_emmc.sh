@@ -105,7 +105,12 @@ rsync -r --exclude=$MNT_THIS_BOOT/MLO,$MNT_THIS_BOOT/u-boot.img,$MNT_THIS_BOOT/'
 cat $MNT_THIS_BOOT/uEnv.txt | sed "s/^\(\s*mmcid=\).*/\1$MMCID/" > $MNT_BOOT/uEnv.txt
 umount $MNT_THIS_BOOT
 rm -rf $MNT_THIS_BOOT
-cp -a /bin/ /boot/ /dev/ /etc/ /home/ /lib/ /opt/ /root/ /sbin/ /srv/ /usr/ /var/ $MNT_ROOT
+for a in /boot/ /dev/ /etc/ /home/ /opt/ /root/ /srv/ /usr/ /var/; do
+	cp -a $a $MNT_ROOT
+done
+ln -s usr/bin $MNT_ROOT/bin
+ln -s usr/lib $MNT_ROOT/lib
+ln -s usr/sbin $MNT_ROOT/sbin
 mkdir -p $MNT_ROOT/media $MNT_ROOT/mnt $MNT_ROOT/proc $MNT_ROOT/run/ $MNT_ROOT/sys $MNT_ROOT/tmp
 cat /etc/fstab  | sed "s:/dev/mmcblk1:/dev/mmcblkX:g" | sed "s:/dev/mmcblk0:/dev/mmcblk1:" | sed "s:/dev/mmcblkX:/dev/mmcblk0:" > $MNT_ROOT/etc/fstab
 rm -rf $MNT_ROOT/etc/systemd/system/default.target.wants/bela_flash_emmc.service
