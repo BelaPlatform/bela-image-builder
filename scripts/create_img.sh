@@ -8,7 +8,7 @@ rm -rf bela.img
 echo "creating Bela SD image"
 
 echo Create empty 4gb disk image
-dd if=/dev/zero of=${DIR}/bela.img bs=1048576 count=3579 # 3579 MiB
+dd if=/dev/zero of=${DIR}/bela.img bs=1048576 count=3648 # 3648 MiB
 
 # partition it
 sudo sfdisk ${DIR}/bela.img < ${DIR}/bela.sfdisk
