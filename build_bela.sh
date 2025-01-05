@@ -3,6 +3,8 @@
 # this script downloads, builds and compiles an image (including kernel, bootloader and rootfs) for Bela
 
 DEPENDENCIES="debootstrap qemu-arm-static autoreconf libtool arm-linux-gnueabihf-ranlib kpartx setuidgid wget bison flex pkg-config arm-linux-gnueabihf-gcc"
+# set up qemu appropriately
+update-binfmts --install arm /usr/bin/qemu-arm-static --magic '\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00' --mask '\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff'
 
 for a in $DEPENDENCIES; do
 	which $a > /dev/null ||\
