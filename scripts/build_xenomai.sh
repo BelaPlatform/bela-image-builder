@@ -13,5 +13,5 @@ scripts/bootstrap
 rm -rf $XENO_BUILD
 mkdir -p $XENO_BUILD
 cd $XENO_BUILD
-../xenomai-3/configure --with-core=cobalt --enable-pshared --host=arm-linux-gnueabihf --build=arm CFLAGS="-march=armv7-a -mfpu=vfp3" --enable-dlopen-libs
+../xenomai-3/configure --with-core=cobalt --enable-pshared --host=arm-linux-gnueabihf --build=arm CFLAGS="-march=armv7-a -mfpu=vfp3 -Wno-error=format-truncation" --enable-dlopen-libs
 make -j${CORES}
