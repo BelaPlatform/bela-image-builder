@@ -85,10 +85,9 @@ git_clone_address="https://github.com/giuliomoro/hvcc"
 git_branch="master-bela"
 update_git
 
-if [ ! -f "setup_10.x" ] ; then
-	wget https://raw.githubusercontent.com/nodesource/distributions/master/deb/setup_10.x
+if [ ! -f "setup_22.x" ] ; then
+	wget https://raw.githubusercontent.com/nodesource/distributions/refs/heads/master/scripts/deb/setup_22.x
 fi
 
 rm -rf deb
 mkdir -p deb && cd deb
-
