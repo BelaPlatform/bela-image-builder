@@ -97,7 +97,7 @@ while [ ! -z "$1" ] ; do
 	shift
 done
 
-export UNSU="setuidgid $SUDO_USER"
+export UNSU="runuser -u $SUDO_USER --"
 # download / clone latest versions of things we need
 if [ -f ${NO_DOWNLOADS} ] ; then
 	$UNSU ${DIR}/scripts/downloads.sh
