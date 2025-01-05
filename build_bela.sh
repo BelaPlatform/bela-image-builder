@@ -23,11 +23,10 @@ fi
 DIR=`pwd`/$(dirname "$0")
 export DIR
 targetdir=${DIR}/rootfs
-targetdir_pre_chroot_backup=${DIR}/pre_chroot_backup
 export targetdir
 
 usage(){
-	echo "--no-downloads --no-kernel --fast-kernel --no-rootfs --cached-fs --do-not-cache-fs --no-bootloader --no-build-xenomai --emmc-flasher --clean"
+	echo "--no-downloads --no-kernel --fast-kernel --no-rootfs --cached-fs <first-stage> --do-not-cache-fs --no-bootloader --no-build-xenomai --emmc-flasher --clean"
 }
 
 clean_all()
@@ -42,11 +41,11 @@ unset NO_KERNEL
 unset FAST_KERNEL
 unset NO_ROOTFS
 unset NO_BOOTLOADER
-unset CACHED_FS
 unset NO_BUILD_XENOMAI
 unset DO_NOT_CACHE_FS
 unset EMMC_FLASHER
 export CORES=$(getconf _NPROCESSORS_ONLN)
+CACHED_FS=-100000
 
 [ -f $DIR/config ] && . $DIR/config || {
 	echo Error: \`$DIR/config\` was not found. Use \`$DIR/config.template\` as a starting point. >&2
@@ -78,7 +77,8 @@ while [ ! -z "$1" ] ; do
 		NO_BUILD_XENOMAI=true
 		;;
 	--cached-fs)
-		CACHED_FS=true
+		CACHED_FS=$2
+		shift
 		;;
 	--do-not-cache-fs)
 		DO_NOT_CACHE_FS=true
@@ -116,43 +116,70 @@ if [ -f ${NO_BUILD_XENOMAI} ] ; then
 	$UNSU ${DIR}/scripts/build_xenomai.sh
 fi
 
-# build the rootfs
-if [ -f ${NO_ROOTFS} ] ; then
-	echo "~~~~ building debian rootfs ~~~~"
-	rm -rf $targetdir
-	if [ -z "${CACHED_FS}" ] ; then
-		mkdir -p $targetdir
-		mkdir $targetdir/root
-		DEB_PACKAGES=`tr "\n" "," < ${DIR}/packages.txt | sed '$ s/.$//'`
-		sudo debootstrap --arch=armhf --foreign --components=main,free,non-free --include=${DEB_PACKAGES} bookworm $targetdir
-		sudo cp /usr/bin/qemu-arm-static $targetdir/usr/bin/
-		sudo cp /etc/resolv.conf $targetdir/etc
-		sudo chroot $targetdir debootstrap/debootstrap --second-stage
-		if [ "${DO_NOT_CACHE_FS}" != "true" ] ; then
-			echo "Backing up the pre-chroot rootfs into $targetdir_pre_chroot_backup"
-			rm -rf $targetdir_pre_chroot_backup
-			mkdir -p $targetdir_pre_chroot_backup
-			sudo cp -ar $targetdir $targetdir_pre_chroot_backup
-		fi
-	else
-		echo "Using backup pre-chroot rootfs from $targetdir_pre_chroot_backup"
-		sudo cp -ar $targetdir_pre_chroot_backup/rootfs $targetdir
-	fi
-	${DIR}/scripts/pre-chroot.sh
-
-
-	sudo cp -v ${DIR}/scripts/chroot.sh $targetdir/
-	sudo CORES=$CORES chroot $targetdir/ /chroot.sh
-	sudo mkdir -p $targetdir/sys
-	sudo mkdir -p $targetdir/proc
-	sudo rm $targetdir/usr/bin/qemu-arm-static
-	sudo rm $targetdir/chroot.sh
-fi
-
 # compile and patch u-boot
 if [ -f ${NO_BOOTLOADER} ] ; then
 	$UNSU ${DIR}/scripts/build_bootloader.sh
 fi
+
+function backup_path(){
+	echo ${DIR}/rootfs_backup_$1
+}
+
+function backup_rootfs (){
+	local stage=$1
+	local path=$(backup_path $stage)
+	echo "Backing up the rootfs at stage $stage into $path"
+	rm -rf $path
+	mkdir -p $path
+	sudo cp -ar $targetdir $path
+}
+function use_backup_rootfs () {
+	local stage=$1
+	echo "Using backup rootfs for stage $stage"
+	sudo cp -ar $(backup_path $stage)/rootfs $targetdir
+}
+
+# build the rootfs
+if [ -f ${NO_ROOTFS} ] ; then
+	echo "~~~~ building debian rootfs ~~~~"
+	stage=-2
+	rm -rf $targetdir
+	if [ $CACHED_FS -lt $stage ]; then
+		mkdir -p $targetdir
+		mkdir $targetdir/root
+		DEB_PACKAGES=`tr "\n" "," < ${DIR}/packages.txt | sed '$ s/.$//'`
+		sudo debootstrap --arch=armhf --foreign --components=main,free,non-free,non-free-firmware --include=${DEB_PACKAGES} bookworm $targetdir
+		sudo cp /usr/bin/qemu-arm-static $targetdir/usr/bin/
+		sudo cp /etc/resolv.conf $targetdir/etc
+		sudo chroot $targetdir debootstrap/debootstrap --second-stage
+		backup_rootfs $stage
+	elif [ $CACHED_FS -eq $stage ]; then
+		use_backup_rootfs $stage
+	fi
+
+	stage=-1
+	if [ $CACHED_FS -lt $stage ]; then
+		${DIR}/scripts/pre-chroot.sh
+		sudo mkdir -p $targetdir/sys
+		sudo mkdir -p $targetdir/proc
+		backup_rootfs $stage
+	elif [ $CACHED_FS -eq $stage ]; then
+		use_backup_rootfs $stage
+	fi
+
+	for a in scripts/chroot-*.sh; do
+		stage=$(echo $a | sed "s/.*chroot-\([0-9]\+\)\.sh/\1/")
+		echo STAGE IS $stage
+		if [ $CACHED_FS -lt $stage ]; then
+			sudo cp -v ${DIR}/$a $targetdir/
+			sudo CORES=$CORES chroot $targetdir/ ./$(basename $a)
+			backup_rootfs $stage
+		elif [ $CACHED_FS -eq $stage ]; then
+			use_backup_rootfs $stage
+		fi
+	done
+fi
+sudo rm -rf $targetdir/chroot-*.sh
 
 if [ -n "${EMMC_FLASHER}" ] ; then
 	sudo cp /usr/bin/qemu-arm-static $targetdir/usr/bin/
