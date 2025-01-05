@@ -8,7 +8,6 @@ libltdl-dev
 file
 vim
 less
-avahi-daemon
 cmake
 zip
 unzip
@@ -51,7 +50,7 @@ libfftw3-dev
 hostapd
 strace
 bc
-python-setuptools
+python3-setuptools
 libreadline-dev
 liblo-dev
 libncurses5-dev
