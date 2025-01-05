@@ -80,11 +80,6 @@ git_clone_address="https://github.com/BelaPlatform/rtdm_pruss_irq"
 git_branch="master"
 update_git
 
-git_project_name="checkinstall"
-git_clone_address="https://github.com/giuliomoro/checkinstall"
-git_branch="master"
-update_git
-
 git_project_name="hvcc"
 git_clone_address="https://github.com/giuliomoro/hvcc"
 git_branch="master-bela"

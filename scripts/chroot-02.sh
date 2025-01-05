@@ -36,15 +36,6 @@ echo "~~~~ Building prudebug ~~~~"
 make -j${CORES}
 cp -v ./prudebug /usr/bin/
 
-#cd "/opt/checkinstall"
-#echo "~~~~ Building checkinstall ~~~~"
-# checkinstall is already installed by deboostrap, but the
-# package that ships with Stretch is buggy. We replace the
-# library that comes with it with a patched one that we
-# compile from source
-#make -j${CORES}
-#make install
-
 cd /opt/bb.org-overlays
 echo "~~~~ Building bb.org-overlays ~~~~"
 make clean
