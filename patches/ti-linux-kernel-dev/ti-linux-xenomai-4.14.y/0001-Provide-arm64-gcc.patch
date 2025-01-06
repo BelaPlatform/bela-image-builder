@@ -1,0 +1,36 @@
+From 28096df6c867d94a4f93efc11b07422070c998b4 Mon Sep 17 00:00:00 2001
+From: Giulio Moro <giuliomoro@yahoo.it>
+Date: Mon, 6 Jan 2025 13:40:45 +0000
+Subject: [PATCH] Provide arm64 gcc
+
+---
+ scripts/gcc.sh | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/scripts/gcc.sh b/scripts/gcc.sh
+index 8921183f..bfa53a64 100755
+--- a/scripts/gcc.sh
++++ b/scripts/gcc.sh
+@@ -40,8 +40,8 @@ else
+ fi
+ 
+ dl_gcc_generic () {
+-	gcc_html_path="https://mirrors.edge.kernel.org/pub/tools/crosstool/files/bin/x86_64/${gcc_selected}/"
+-	gcc_filename_prefix="x86_64-gcc-${gcc_selected}-nolibc-${gcc_prefix}"
++	gcc_html_path="https://mirrors.edge.kernel.org/pub/tools/crosstool/files/bin/arm64/${gcc_selected}/"
++	gcc_filename_prefix="arm64-gcc-${gcc_selected}-nolibc-${gcc_prefix}"
+ 	extracted_dir="gcc-${gcc_selected}-nolibc/${gcc_prefix}"
+ 	binary="bin/${gcc_prefix}-"
+ 
+@@ -78,7 +78,7 @@ dl_gcc_generic () {
+ gcc_toolchain () {
+ 	unset extracted_dir
+ 
+-	#https://mirrors.edge.kernel.org/pub/tools/crosstool/files/bin/x86_64/
++	#https://mirrors.edge.kernel.org/pub/tools/crosstool/files/bin/arm64/
+ 	gcc6="6.5.0"
+ 	gcc7="7.5.0"
+ 	gcc8="8.5.0"
+-- 
+2.34.1
+

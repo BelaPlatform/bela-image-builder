@@ -1,0 +1,40 @@
+From c936f94ae0d13e4c27e3e31577d5cdb2f523a4bd Mon Sep 17 00:00:00 2001
+From: Your Name <you@example.com>
+Date: Mon, 6 Jan 2025 11:52:00 +0000
+Subject: [PATCH 1/2] Provide arm64 gcc
+
+---
+ scripts/gcc.sh | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/scripts/gcc.sh b/scripts/gcc.sh
+index e89bc11c..817c3b06 100755
+--- a/scripts/gcc.sh
++++ b/scripts/gcc.sh
+@@ -76,12 +76,7 @@ dl_generic () {
+ 		echo "Using Existing Toolchain: ${toolchain}"
+ 	fi
+ 
+-	if [ "x${ARCH}" = "xarmv7l" ] || [ "x${ARCH}" = "xaarch64" ] ; then
+-		#using native gcc
+-		CC=
+-	else
+ 		CC="${gcc_dir}/${filename_prefix}/${binary}"
+-	fi
+ }
+ 
+ dl_gcc_generic_old () {
+@@ -91,8 +86,8 @@ dl_gcc_generic_old () {
+ }
+ 
+ dl_gcc_generic () {
+-	gcc_html_path="https://mirrors.edge.kernel.org/pub/tools/crosstool/files/bin/x86_64/${gcc_selected}/"
+-	gcc_filename_prefix="x86_64-gcc-${gcc_selected}-nolibc-${gcc_prefix}"
++	gcc_html_path="https://mirrors.edge.kernel.org/pub/tools/crosstool/files/bin/arm64/${gcc_selected}/"
++	gcc_filename_prefix="arm64-gcc-${gcc_selected}-nolibc-${gcc_prefix}"
+ 	extracted_dir="gcc-${gcc_selected}-nolibc/${gcc_prefix}"
+ 
+ 	dl_generic
+-- 
+2.34.1
+
