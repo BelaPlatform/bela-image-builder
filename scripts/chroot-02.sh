@@ -13,11 +13,11 @@ make -j${CORES}
 make install
 
 # install kernel module
-#cd "/opt/rtdm_pruss_irq"
-#echo "~~~~ Building kernel module ~~~~"
-#make all UNAME=${BELA_KERNEL_VERSION}
-#make install UNAME=${BELA_KERNEL_VERSION}
-#make clean UNAME=${BELA_KERNEL_VERSION}
+cd "/opt/rtdm_pruss_irq"
+echo "~~~~ Building kernel module ~~~~"
+make all UNAME=${BELA_KERNEL_VERSION}
+make install UNAME=${BELA_KERNEL_VERSION}
+make clean UNAME=${BELA_KERNEL_VERSION}
 
 # install seasocks (websocket library)
 cd /opt/seasocks

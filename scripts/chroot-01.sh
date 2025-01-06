@@ -23,9 +23,9 @@ ls /root/
 dpkg -i /root/linux-headers-${BELA_KERNEL_VERSION}*ross_armhf.deb
 #echo ~~~~ libc ~~~~
 #dpkg -i /root/linux-libc*ross_armhf.deb
-#echo "~~~~ depmod ~~~~"
-#depmod "${BELA_KERNEL_VERSION}" -a
-#rm -rf /root/linux-*.deb
+echo "~~~~ depmod ~~~~"
+depmod "${BELA_KERNEL_VERSION}" -a
+rm -rf /root/linux-*.deb
 #ensure #include <linux/version.h> returns the same value as `uname -r`. Workaround for https://github.com/RobertCNelson/ti-linux-kernel-dev/issues/38
 cp /usr/src/linux-headers-${BELA_KERNEL_VERSION}/include/generated/uapi/linux/version.h /usr/include/linux/version.h
 
@@ -36,5 +36,5 @@ mkdir -p arch/arm/tools
 cp -r /root/kernel-tools/* arch/arm/tools
 make headers_check -j${CORES}
 make headers_install -j${CORES}
-#make scripts -j${CORES}
+make scripts -j${CORES}
 rm -rf /root/kernel-tools
