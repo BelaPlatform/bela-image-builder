@@ -56,9 +56,6 @@ sudo cp -v ${DIR}/boot/MLO /mnt/bela/boot/
 sync
 sudo cp -v ${DIR}/boot/u-boot.img /mnt/bela/boot/
 sync
-# copying static extras to boot partition
-sudo cp -rv ${DIR}/misc/boot/* /mnt/bela/boot/
-sync
 
 # complete and copy uEnv.txt for SD
 cp ${DIR}/boot/uEnv.txt ${DIR}/boot/uEnv.tmp
