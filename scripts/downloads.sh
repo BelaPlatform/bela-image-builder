@@ -26,7 +26,23 @@ update_git(){
 		cd -
 	else
 		git clone ${git_clone_address} ${git_project_name} -b ${git_branch}
+		cd ${git_project_name} # so cd - below works
 	fi
+	cd ${git_project_name}/
+	local patches_folder=../../patches/${git_project_name}/${git_branch}
+	if [ -d $patches_folder ]; then
+		git reset --hard origin/$git_branch
+		for a in $patches_folder/*.patch; do
+			git apply $a
+		done
+
+		if [ -d $patches_folder/fs ]; then
+			for a in $patches_folder/fs/*; do
+				cp $a ./
+			done
+		fi
+	fi
+	cd -
 }
 
 
