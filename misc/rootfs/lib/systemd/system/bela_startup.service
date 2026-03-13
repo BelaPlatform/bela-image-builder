@@ -1,7 +1,7 @@
 [Unit]
 Description=Run Bela at boot
 DefaultDependencies=no
-Requires=systemd-modules-load.service
+After=systemd-modules-load.service
 Conflicts=shutdown.target
 Before=shutdown.target
 
